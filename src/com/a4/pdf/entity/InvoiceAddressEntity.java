@@ -2,6 +2,7 @@ package com.a4.pdf.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +16,8 @@ public class InvoiceAddressEntity {
 	private String shippingAddress;
 	@Column(name = "InvoiceNumber")
 	private String invoiceNo;
+	@OneToOne
+	private InvoiceDetailsEntity invoiceDetails;
 
 	public String getInvoiceAddress() {
 		return invoiceAddress;

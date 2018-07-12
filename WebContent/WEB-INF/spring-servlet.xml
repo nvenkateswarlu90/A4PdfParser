@@ -15,49 +15,57 @@
 		infrastructure -->
 
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven />
 	<context:component-scan base-package="com.a4.pdf.controller" />
-	
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</bean>
-	
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-  		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-  			<property name="url" value="jdbc:sqlserver://192.168.1.10;databaseName=a4datapro;" />
-  		<!-- <property name="url" value="jdbc:sqlserver://219.91.244.206;databaseName=a4datapro;" /> -->
-     	<property name="username" value="sa" />
-  		<property name="password" value="P@$$w0rd123" />
-  	</bean>
-	<!--  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
-		<property name="driverClassName" value="${mysql.db.driverClassName}" />
-		<property name="url" value="${mysql.db.url}" />
-		<property name="username" value="${mysql.db.username}" />
-		<property name="password" value="${mysql.db.password}" />
-		<property name="url" value="${server.mysql.db.url}" /> <property name="username" 
-			value="${server.mysql.db.username}" /> <property name="password" value="${server.mysql.db.password}" 
-			/>
-	</bean> --> 
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/databaseName" />
+		<!-- <property name="url" value="jdbc:sqlserver://219.91.244.206;databaseName=a4datapro;" 
+			/> -->
+		<property name="username" value="root" />
+		<property name="password" value="A4tech$%%ASI" />
+	</bean>
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close"> <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
+		/> <property name="url" value="jdbc:sqlserver://192.168.1.10;databaseName=a4datapro;" 
+		/> <property name="url" value="jdbc:sqlserver://219.91.244.206;databaseName=a4datapro;" 
+		/> <property name="username" value="sa" /> <property name="password" value="P@$$w0rd123" 
+		/> </bean> -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close"> <property name="driverClassName" value="${mysql.db.driverClassName}" 
+		/> <property name="url" value="${mysql.db.url}" /> <property name="username" 
+		value="${mysql.db.username}" /> <property name="password" value="${mysql.db.password}" 
+		/> <property name="url" value="${server.mysql.db.url}" /> <property name="username" 
+		value="${server.mysql.db.username}" /> <property name="password" value="${server.mysql.db.password}" 
+		/> </bean> -->
 
 	<bean id="hibernate3AnnotatedSessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-				
-				<!-- <value>parser.highcaliberline.HighCalColorEntity</value> -->
+				<value>com.a4.pdf.entity.POEntity</value>
+				<value>com.a4.pdf.entity.VendorDetailsEntity</value>
+				<value>com.a4.pdf.entity.InvoiceDetailsEntity</value>
+				<value>com.a4.pdf.entity.InvoiceAddressEntity</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
 			<props>
-				 <!--  <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> -->
-				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop> -->
 				<prop key="hibernate.current_session_context_class">thread</prop>
 				<prop key="show_sql">true</prop>
 				<prop key="hbm2ddl.auto">update</prop>
@@ -65,11 +73,9 @@
 		</property>
 
 	</bean>
-	<!-- <bean id="productDao" name="productDao"
-		class="com.a4tech.product.dao.service.ProductDao">
+	<bean id="pdfDao" name="pdfDao" class="com.a4.pdf.pdfDaoImpl.PdfDaoImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory"></property>
-		<property name="errorFileLocPath" value="${error.logfile.location}"></property>
-	</bean> -->
-		
-		
+	</bean>
+
+
 </beans>

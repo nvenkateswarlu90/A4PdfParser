@@ -1,10 +1,15 @@
 package com.a4.pdf.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="InvoiceDetails")
 public class InvoiceDetailsEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +37,8 @@ public class InvoiceDetailsEntity {
 	private String shipAccount;
 	@Column(name = "CustPO")
 	private String custPo;
-
+	@OneToOne(mappedBy="")
+   private InvoiceAddressEntity invoiceAddress;
 	public Integer getSrNo() {
 		return srNo;
 	}
