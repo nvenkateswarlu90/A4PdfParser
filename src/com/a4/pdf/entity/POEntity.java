@@ -4,57 +4,86 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PurchaseOrderDetails")
+@Table(name = "PurchaseOrderDetails")
 public class POEntity {
-	
-  private Integer srNo;
-  @Column(name="PONumber")
-  private String poNumber;
-  @Column(name="VendorNumber")
-  private String vendorNo;
-  @Column(name="JobId")
-  private Integer jobId;
-  @Column(name="POAddress")
-  private String poAddress;
-  private List<VendorDetailsEntity> listOfVendorDetails;
-public Integer getSrNo() {
-	return srNo;
-}
-public void setSrNo(Integer srNo) {
-	this.srNo = srNo;
-}
-public String getPoNumber() {
-	return poNumber;
-}
-public void setPoNumber(String poNumber) {
-	this.poNumber = poNumber;
-}
-public String getVendorNo() {
-	return vendorNo;
-}
-public void setVendorNo(String vendorNo) {
-	this.vendorNo = vendorNo;
-}
-public Integer getJobId() {
-	return jobId;
-}
-public void setJobId(Integer jobId) {
-	this.jobId = jobId;
-}
-public String getPoAddress() {
-	return poAddress;
-}
-public void setPoAddress(String poAddress) {
-	this.poAddress = poAddress;
-}
-public List<VendorDetailsEntity> getListOfVendorDetails() {
-	return listOfVendorDetails;
-}
-public void setListOfVendorDetails(List<VendorDetailsEntity> listOfVendorDetails) {
-	this.listOfVendorDetails = listOfVendorDetails;
-}
-  
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "SrNo")
+	private Integer srNo;
+	@Column(name = "PONumber")
+	private String poNumber;
+	@Column(name = "VendorNumber")
+	private String vendorNo;
+	@Column(name = "JobId")
+	private Integer jobId;
+	@Column(name = "POAddress")
+	private String poAddress;
+	@OneToMany(mappedBy = "poEntity")
+	private List<VendorDetailsEntity> listOfVendorDetails;
+	private POShippingDetailsEntity poShippingDetails;
+
+	public Integer getSrNo() {
+		return srNo;
+	}
+
+	public void setSrNo(Integer srNo) {
+		this.srNo = srNo;
+	}
+
+	public String getPoNumber() {
+		return poNumber;
+	}
+
+	public void setPoNumber(String poNumber) {
+		this.poNumber = poNumber;
+	}
+
+	public String getVendorNo() {
+		return vendorNo;
+	}
+
+	public void setVendorNo(String vendorNo) {
+		this.vendorNo = vendorNo;
+	}
+
+	public Integer getJobId() {
+		return jobId;
+	}
+
+	public void setJobId(Integer jobId) {
+		this.jobId = jobId;
+	}
+
+	public String getPoAddress() {
+		return poAddress;
+	}
+
+	public void setPoAddress(String poAddress) {
+		this.poAddress = poAddress;
+	}
+
+	public List<VendorDetailsEntity> getListOfVendorDetails() {
+		return listOfVendorDetails;
+	}
+
+	public void setListOfVendorDetails(List<VendorDetailsEntity> listOfVendorDetails) {
+		this.listOfVendorDetails = listOfVendorDetails;
+	}
+
+	public POShippingDetailsEntity getPoShippingDetails() {
+		return poShippingDetails;
+	}
+
+	public void setPoShippingDetails(POShippingDetailsEntity poShippingDetails) {
+		this.poShippingDetails = poShippingDetails;
+	}
+
 }
