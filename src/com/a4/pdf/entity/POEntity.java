@@ -1,5 +1,7 @@
 package com.a4.pdf.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -17,6 +19,7 @@ public class POEntity {
   private Integer jobId;
   @Column(name="POAddress")
   private String poAddress;
+  private List<VendorDetailsEntity> listOfVendorDetails;
 public Integer getSrNo() {
 	return srNo;
 }
@@ -46,6 +49,12 @@ public String getPoAddress() {
 }
 public void setPoAddress(String poAddress) {
 	this.poAddress = poAddress;
+}
+public List<VendorDetailsEntity> getListOfVendorDetails() {
+	return listOfVendorDetails;
+}
+public void setListOfVendorDetails(List<VendorDetailsEntity> listOfVendorDetails) {
+	this.listOfVendorDetails = listOfVendorDetails;
 }
   
 }
