@@ -38,24 +38,36 @@ public class VendorDetailsEntity {
 	private String productCriteriaInstruction;
 	@Column(name = "ImprintLocation")
 	private String imprintLocation;
-	@Column(name = "InstructionToFactory")
-	private String instructionToFactory;
+	@Column(name = "InstructionToFactory1")
+	private String instructionToFactory1;
+	@Column(name = "InstructionToFactory2")
+	private String instructionToFactory2;
 	@Column(name = "VendorAddress")
 	private String vendorAddress;
-	@OneToMany(mappedBy = "vendorDetails")
-	private List<POShippingDetailsEntity> listOfPoShippingDetails;
+	@Column(name="ShippingAddress")
+	private String shippingAddress;
+	@Column(name="LogisticInfo")
+	private String logisticInfo;
+	
+	public String getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(String shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public String getLogisticInfo() {
+		return logisticInfo;
+	}
+
+	public void setLogisticInfo(String logisticInfo) {
+		this.logisticInfo = logisticInfo;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "poNumber", nullable = false)
 	private POEntity poEntity;
-
-	public List<POShippingDetailsEntity> getListOfPoShippingDetails() {
-		return listOfPoShippingDetails;
-	}
-
-	public void setListOfPoShippingDetails(List<POShippingDetailsEntity> listOfPoShippingDetails) {
-		this.listOfPoShippingDetails = listOfPoShippingDetails;
-	}
-
 	public Integer getSrNo() {
 		return srNo;
 	}
@@ -136,12 +148,20 @@ public class VendorDetailsEntity {
 		this.imprintLocation = imprintLocation;
 	}
 
-	public String getInstructionToFactory() {
-		return instructionToFactory;
+	public String getInstructionToFactory1() {
+		return instructionToFactory1;
 	}
 
-	public void setInstructionToFactory(String instructionToFactory) {
-		this.instructionToFactory = instructionToFactory;
+	public void setInstructionToFactory1(String instructionToFactory1) {
+		this.instructionToFactory1 = instructionToFactory1;
+	}
+
+	public String getInstructionToFactory2() {
+		return instructionToFactory2;
+	}
+
+	public void setInstructionToFactory2(String instructionToFactory2) {
+		this.instructionToFactory2 = instructionToFactory2;
 	}
 
 	public String getVendorAddress() {

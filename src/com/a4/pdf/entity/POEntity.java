@@ -28,7 +28,6 @@ public class POEntity {
 	private String poAddress;
 	@OneToMany(mappedBy = "poEntity")
 	private List<VendorDetailsEntity> listOfVendorDetails;
-	private POShippingDetailsEntity poShippingDetails;
 
 	public Integer getSrNo() {
 		return srNo;
@@ -77,13 +76,4 @@ public class POEntity {
 	public void setListOfVendorDetails(List<VendorDetailsEntity> listOfVendorDetails) {
 		this.listOfVendorDetails = listOfVendorDetails;
 	}
-
-	public POShippingDetailsEntity getPoShippingDetails() {
-		return poShippingDetails;
-	}
-
-	public void setPoShippingDetails(POShippingDetailsEntity poShippingDetails) {
-		this.poShippingDetails = poShippingDetails;
-	}
-
 }
