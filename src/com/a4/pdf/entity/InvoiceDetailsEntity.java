@@ -1,5 +1,6 @@
 package com.a4.pdf.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="InvoiceDetails")
+@Table(name="invoice_details")
 public class InvoiceDetailsEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +38,7 @@ public class InvoiceDetailsEntity {
 	private String shipAccount;
 	@Column(name = "CustPO")
 	private String custPo;
-	@OneToOne(mappedBy="")
+	@OneToOne(mappedBy="invoiceDetails",cascade = CascadeType.ALL)
    private InvoiceAddressEntity invoiceAddress;
 	public Integer getSrNo() {
 		return srNo;

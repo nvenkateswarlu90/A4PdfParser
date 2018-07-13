@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "VendorDetails")
+@Table(name = "vendor_details")
 public class VendorDetailsEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,24 +46,8 @@ public class VendorDetailsEntity {
 	@Column(name="LogisticInfo")
 	private String logisticInfo;
 	
-	public String getShippingAddress() {
-		return shippingAddress;
-	}
-
-	public void setShippingAddress(String shippingAddress) {
-		this.shippingAddress = shippingAddress;
-	}
-
-	public String getLogisticInfo() {
-		return logisticInfo;
-	}
-
-	public void setLogisticInfo(String logisticInfo) {
-		this.logisticInfo = logisticInfo;
-	}
-
 	@ManyToOne
-	@JoinColumn(name = "poNumber", nullable = false)
+	@JoinColumn(name = "PO_Ref_Id",referencedColumnName="PONumber")
 	private POEntity poEntity;
 	public Integer getSrNo() {
 		return srNo;
@@ -176,4 +160,21 @@ public class VendorDetailsEntity {
 	public void setPoEntity(POEntity poEntity) {
 		this.poEntity = poEntity;
 	}
+	public String getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(String shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public String getLogisticInfo() {
+		return logisticInfo;
+	}
+
+	public void setLogisticInfo(String logisticInfo) {
+		this.logisticInfo = logisticInfo;
+	}
+
+
 }

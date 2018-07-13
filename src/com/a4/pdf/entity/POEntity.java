@@ -2,6 +2,7 @@ package com.a4.pdf.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
-@Table(name = "PurchaseOrderDetails")
+@Table(name = "purchase_order_details")
 public class POEntity {
 
 	@Id
@@ -27,6 +30,7 @@ public class POEntity {
 	@Column(name = "POAddress")
 	private String poAddress;
 	@OneToMany(mappedBy = "poEntity")
+	//@Cascade(Cascade = CascadeType.ALL)
 	private List<VendorDetailsEntity> listOfVendorDetails;
 
 	public Integer getSrNo() {

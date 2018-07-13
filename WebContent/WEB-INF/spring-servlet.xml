@@ -16,7 +16,8 @@
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
-	<context:component-scan base-package="com.a4.pdf.controller" />
+	<context:annotation-config/>
+	<context:component-scan base-package="com.a4.pdf.*" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -31,26 +32,13 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/databaseName" />
+		<property name="url" value="jdbc:mysql://localhost:3306/a4pdfpro" />
 		<!-- <property name="url" value="jdbc:sqlserver://219.91.244.206;databaseName=a4datapro;" 
 			/> -->
 		<property name="username" value="root" />
 		<property name="password" value="A4tech$%%ASI" />
 	</bean>
-	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
-		destroy-method="close"> <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
-		/> <property name="url" value="jdbc:sqlserver://192.168.1.10;databaseName=a4datapro;" 
-		/> <property name="url" value="jdbc:sqlserver://219.91.244.206;databaseName=a4datapro;" 
-		/> <property name="username" value="sa" /> <property name="password" value="P@$$w0rd123" 
-		/> </bean> -->
-	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
-		destroy-method="close"> <property name="driverClassName" value="${mysql.db.driverClassName}" 
-		/> <property name="url" value="${mysql.db.url}" /> <property name="username" 
-		value="${mysql.db.username}" /> <property name="password" value="${mysql.db.password}" 
-		/> <property name="url" value="${server.mysql.db.url}" /> <property name="username" 
-		value="${server.mysql.db.username}" /> <property name="password" value="${server.mysql.db.password}" 
-		/> </bean> -->
-
+	
 	<bean id="hibernate3AnnotatedSessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
@@ -73,9 +61,15 @@
 		</property>
 
 	</bean>
-	<bean id="pdfDao" name="pdfDao" class="com.a4.pdf.pdfDaoImpl.PdfDaoImpl">
+	<bean id="fileUpload" class="com.a4.pdf.controller.FileUpload">
+		<property name="pdfService" ref="pdfServiceImplId"/>
+	</bean>
+	<bean id="pdfDaoId" name="pdfDao" class="com.a4.pdf.pdfDaoImpl.PdfDaoImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory"></property>
 	</bean>
 
-
+   <bean id="pdfServiceImplId" class="com.a4.pdf.pdfServiceImpl.PdfServiceImpl">
+   		<property name="pdfDao" ref="pdfDaoId"/>
+   </bean>
+   
 </beans>
