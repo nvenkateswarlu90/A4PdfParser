@@ -4,6 +4,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page session="false" %>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.Connection"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en" >
 <head>
@@ -92,6 +98,45 @@ h4 {
        <button type="submit" class="btn btn-primary col-md-12"> Upload File </button></a>
 </div>
 </form:form>
+<select name ="PDF">
+	<option  selected="">Select PO</option>
+<% 
+Class.forName("com.mysql.jdbc.Driver");  
+Connection con=DriverManager.getConnection(  
+		"jdbc:mysql://localhost:3306/a4pdfparser","root","root"); 
+Statement stmt=con.createStatement();  
+ResultSet rs=stmt.executeQuery("select * from purchaseorderdetails");  
+while(rs.next()){
+%>
+<option value ="<%=rs.getString("srNo")%>"><%=rs.getString("PONumber")%></option>
+<% 
+}
+rs.close();
+con.close();
+%>
+</select>
+
+
+
+<select name ="PDF">
+	<option  selected="">Select INVOICE</option>
+<% 
+Class.forName("com.mysql.jdbc.Driver");  
+ Connection con12=DriverManager.getConnection(  
+		"jdbc:mysql://localhost:3306/a4pdfparser","root","root");  
+Statement stmt12=con12.createStatement();  
+ResultSet rs12=stmt12.executeQuery("select * from invoicedetails");  
+while(rs12.next()){
+%>
+<option value ="<%=rs12.getString("srNo")%>"><%=rs12.getString("InvoiceNumber")%></option>
+<% 
+}
+rs12.close();
+con12.close();
+
+%>
+</select>
+<button type="button" class="btn btn-primary col-md-4"> Submit </button>
 	</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 

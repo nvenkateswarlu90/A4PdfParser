@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body><!-- 
 <h2>UPLOAD INVOICE / PO</h2>
 <div class="container">
   <div class="form-group">
@@ -24,5 +24,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
 <script  src="js/index.js"></script>
-</body>
+ --></body>
 </html>
