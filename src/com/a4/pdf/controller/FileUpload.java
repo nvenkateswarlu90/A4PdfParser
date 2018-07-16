@@ -50,7 +50,8 @@ public class FileUpload {
 		}
 	}
 	private ModelAndView getParsePurchaseOrder(String fileName){
-		List<String> poNumbersList = pdfService.getAllPONumber();
+		pdfService.savePoDetails(null);
+		//List<String> poNumbersList = pdfService.getAllPONumber();
 		String filename="";
 		LinkedHashMap<String,String> valueMap=new LinkedHashMap<String, String>();
 		Mapclas contactForm = null;

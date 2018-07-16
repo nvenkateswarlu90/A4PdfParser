@@ -36,12 +36,13 @@ public class PdfServiceImpl implements IPdfService {
 		vendorDetails.setInstructionToFactory2("instructiontofactory2");
 		vendorDetails.setLogisticInfo("via amazon");
 		vendorDetails.setProductDetails("red,black,2x");
-		listOfVendorDetails.add(vendorDetails);
+		//listOfVendorDetails.add(vendorDetails);
 		poEntity.setJobId(123456);
 		poEntity.setPoAddress("kp aurum,Mumbai");
 		poEntity.setPoNumber("1201");
 		poEntity.setVendorNo("Puma");
-		poEntity.setListOfVendorDetails(listOfVendorDetails);
+		poEntity.addVendorDetailsEntity(vendorDetails);
+		//poEntity.setListOfVendorDetails(listOfVendorDetails);
 		/*// POShippingDetailsEntity pOShippingDetailsEntity = null;
 		VendorDetailsEntity vendorDetailsEntity = null;
 		int purchaseOrderNo = 1;
