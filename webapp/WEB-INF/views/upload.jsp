@@ -93,6 +93,33 @@ h4 {
 </div>
 </form:form>
 	</div>
+<div class="row">
+  <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+ <div class="form-group">
+  <label for="sel1">Select list:</label>
+  <select class="form-control" id="">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+  </select>
+</div>
+
+	</div>
+	<div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+<div class="form-group">
+  <label for="sel1">Select list:</label>
+  <select class="form-control" id="">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+  </select>
+</div>
+
+	</div>
+	</div>
+	<button type="button" class="btn btn-primary col-md-4"> Submit </button>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
 <!-- <script  src="resources/js/index.js"></script> -->
