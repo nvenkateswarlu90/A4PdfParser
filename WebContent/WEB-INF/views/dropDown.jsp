@@ -71,7 +71,7 @@ h4 {
 
 
 <body>
-<h2>UPLOAD INVOICE / PO</h2>
+<h2>Show Data</h2>
 <div class="container">
 <form:form name="uploadBean"  enctype="multipart/form-data"
 								modelAttribute="uploadBean" action="parseFile">
