@@ -1,14 +1,15 @@
-package com.a4.pdf.ipdfDao;
+package com.a4.pdf.ipdfService;
 
 import java.util.List;
 
 import com.a4.pdf.entity.InvoiceDetailsEntity;
 import com.a4.pdf.entity.POEntity;
+import com.a4.pdf.model.PurchaseOrder;
 
-public interface IpdfDao {
-	public void savePoDetails(POEntity poEntity);
+public interface IPdfService {
+	public void savePoDetails(List<PurchaseOrder> purchaseOrder);
 
-	public void saveInvoiceDetails(InvoiceDetailsEntity invoiceDetailsEntity);
+	public void saveInvoiceDetails();
 
 	public List<String> getAllPONumber();
 

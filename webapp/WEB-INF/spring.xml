@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -6,15 +6,15 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing 
-		infrastructure -->
+	DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure
 
-	<!-- Enables the Spring MVC @Controller programming model -->
+	Enables the Spring MVC @Controller programming model
 	<annotation-driven />
 	<context:component-scan base-package="com.a4.pdf.controller" />
 	
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
+	Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
@@ -23,4 +23,4 @@
 	<beans:bean id="multipartResolver"   
 	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>	
-</beans:beans>
+</beans:beans> -->
