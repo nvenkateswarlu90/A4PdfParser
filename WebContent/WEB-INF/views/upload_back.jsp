@@ -98,7 +98,46 @@ h4 {
        <button type="submit" class="btn btn-primary col-md-12"> Upload File </button></a>
 </div>
 </form:form>
-</div>
+<select name ="PDF">
+	<option  selected="">Select PO</option>
+<% 
+Class.forName("com.mysql.jdbc.Driver");  
+Connection con=DriverManager.getConnection(  
+		"jdbc:mysql://localhost:3306/a4pdfpro","root","A4tech$%%ASI"); 
+Statement stmt=con.createStatement();  
+ResultSet rs=stmt.executeQuery("select * from purchase_order_details");  
+while(rs.next()){
+%>
+<option value ="<%=rs.getString("srNo")%>"><%=rs.getString("PONumber")%></option>
+<% 
+}
+rs.close();
+con.close();
+%>
+</select>
+
+
+
+<select name ="PDF">
+	<option  selected="">Select INVOICE</option>
+<% 
+Class.forName("com.mysql.jdbc.Driver");  
+ Connection con12=DriverManager.getConnection(  
+		"jdbc:mysql://localhost:3306/a4pdfpro","root","A4tech$%%ASI");  
+Statement stmt12=con12.createStatement();  
+ResultSet rs12=stmt12.executeQuery("select * from invoice_details");  
+while(rs12.next()){
+%>
+<option value ="<%=rs12.getString("srNo")%>"><%=rs12.getString("InvoiceNumber")%></option>
+<% 
+}
+rs12.close();
+con12.close();
+
+%>
+</select>
+<button type="button" class="btn btn-primary col-md-4"> Submit </button>
+	</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
 <!-- <script  src="resources/js/index.js"></script> -->

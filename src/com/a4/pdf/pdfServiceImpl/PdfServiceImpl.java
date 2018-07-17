@@ -119,7 +119,7 @@ public class PdfServiceImpl implements IPdfService {
 	}
 	@Override
 	public POEntity getPODetails(String poNo) {
-		
+		POEntity poEntity = pdfDao.getPODetails(poNo);
 		return null;
 	}
 	@Override
