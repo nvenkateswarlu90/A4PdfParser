@@ -71,36 +71,41 @@ h4 {
 
 
 <body>
-<h2>UPLOAD INVOICE / PO</h2>
+<h2>Show Data</h2>
 <div class="container">
 <form:form name="uploadBean"  enctype="multipart/form-data"
 								modelAttribute="uploadBean" action="parseFile">
-  
-   <div class="form-group">
-
-									<%-- <c:if test="${empty environemtType}"> --%>
-									<!-- <label for="sel1">Select Type Of Enviornmet</label> -->
-									<form:select class="form-control" path="fileType" id="environmentTypeId">
-										<form:option value="NONE" label="Select Type Of File"></form:option>
-										<form:option value="PO">Purchase Order</form:option>
-										<form:option value="Invoice">Invoice</form:option>
-									</form:select>
-									<%-- </c:if> --%>
-								</div>
-<div class="form-group">
-    <!-- <input type="file" name="img[]" class="file"> -->
-    <div class="input-group col-xs-12"> <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-      <input type="file" name="file" class="form-control input-md"/>
-      <span class="input-group-btn">
-      <!-- <button class="browse btn btn-dark input-md" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button> -->
-      </span> </div>
-    <br>
-       <button type="submit" class="btn btn-primary col-md-12"> Upload File </button></a>
+   <div class="row">
+  <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+ <div class="form-group">
+  <label for="sel1">Main List</label>
+  <select class="form-control" id="pdfType" onchange="getPoInvoiceNumbers()">
+    <option> Select Type Of File</option>
+    <option value="purchaseOrder">Purchase Order</option>
+    <option value="invoice">Invoice</option>
+  </select>
 </div>
+
+	</div>
+	<div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+<div class="form-group">
+  <label for="sel1">Sub List</label>
+  <select class="form-control" id="poInvId">
+    <option>Select PO/Invoice number</option>
+  </select>
+</div>
+
+	</div>
+	</div>
+	<button type="button" class="btn btn-primary col-md-4"> Submit </button>
+	
+	
+	<a class="btn btn-primary col-md-4" style="float:right" href="<c:url value='/uploadFile.htm' />"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
 </form:form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
+<script src="resources/js/jquery-1.11.1.js" type="text/javascript"></script>
 <!-- <script  src="resources/js/index.js"></script> -->
 
 <script>
@@ -111,6 +116,48 @@ $(document).on('click', '.browse', function(){
 	$(document).on('change', '.file', function(){
 	  $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
 	});
+	
+	$(document).ready(function() {
+		$('#xyz').change(function(event) {
+			//alert('select pdf type file');
+		        var sports = $("select#pdfType").val();
+		        //var sports = $("select#pdfType").val();
+		        $.get(
+		        		'JsonServlet', {
+		                sportsName : sports
+		        }, function(response) {
+
+		        var select = $('#poInvId');
+		        select.find('option').remove();
+		          $.each(response, function(index, value) {
+		          $('<option>').val(value).text(value).appendTo(select);
+		      });
+		        });
+		        });
+		});
+//getPoInvoiceNumbers()
+function getPoInvoiceNumbers() {
+    //alert('getPOInvoiceNumbers');    
+	var fileType = $('#pdfType').val();
+	//alert('fileType'+fileType);
+        $.ajax({
+        type: "GET",
+        url: "getAllPOInvoiceNo",
+        data: "fileType=" + fileType,
+        success: function(response){
+        // we have the response
+        	 var select = $('#poInvId');
+		        select.find('option').remove();
+		          $.each(response, function(index, value) {
+		          $('<option>').val(value).text(value).appendTo(select);
+		      });
+		        },
+        error: function(e){
+        alert('Error: ' + e);
+        }
+        });
+        }
+
 	</script>
 </body>
 </html>

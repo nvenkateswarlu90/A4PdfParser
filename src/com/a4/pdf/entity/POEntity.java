@@ -1,26 +1,29 @@
 package com.a4.pdf.entity;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-
 @Entity
 @Table(name = "purchase_order_details")
-public class POEntity {
+public class POEntity implements Serializable{
 
-	@Id
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4204920809804667921L;
+	/*@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SrNo")
-	private Integer srNo;
+	private Integer srNo;*/
+	@Id
 	@Column(name = "PONumber")
 	private String poNumber;
 	@Column(name = "VendorNumber")
@@ -29,18 +32,12 @@ public class POEntity {
 	private Integer jobId;
 	@Column(name = "POAddress")
 	private String poAddress;
-	@OneToMany(mappedBy = "poEntity")
-	//@Cascade(Cascade = CascadeType.ALL)
-	private List<VendorDetailsEntity> listOfVendorDetails;
+	
+	@OneToMany(mappedBy = "purchaseOrder",cascade = CascadeType.ALL)
+	//@Cascade(CascadeType.ALL)
+	private List<VendorDetailsEntity> listOfVendorDetails = new ArrayList<>();
 
-	public Integer getSrNo() {
-		return srNo;
-	}
-
-	public void setSrNo(Integer srNo) {
-		this.srNo = srNo;
-	}
-
+	
 	public String getPoNumber() {
 		return poNumber;
 	}
@@ -79,5 +76,11 @@ public class POEntity {
 
 	public void setListOfVendorDetails(List<VendorDetailsEntity> listOfVendorDetails) {
 		this.listOfVendorDetails = listOfVendorDetails;
+	}
+	public void addVendorDetailsEntity(VendorDetailsEntity entity){
+		if(entity!= null){
+			getListOfVendorDetails().add(entity);
+			entity.setPurchaseOrder(this);
+		}
 	}
 }

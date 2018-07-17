@@ -1,15 +1,20 @@
 package com.a4.pdf.controller;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.http.HttpRequest;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,18 +44,36 @@ public class FileUpload {
 		return "ftpLogin";*/ 
 		}
 	@RequestMapping(value="/parseFile",method=RequestMethod.POST)  
-	public void upload(@ModelAttribute("uploadBean") UploadBean uploadBean){
+	public String upload(@ModelAttribute("uploadBean") UploadBean uploadBean){
 		MultipartFile file =  uploadBean.getFile();
 		System.out.println(file.getOriginalFilename());
 		System.out.println(uploadBean.getFileType());
 		if(uploadBean.getFileType().equals("PO")){
-			getParsePurchaseOrder(file.getOriginalFilename());
+			//getParsePurchaseOrder(file.getOriginalFilename());
 		} else{//Invoice
 			
 		}
+		return "dropDown";
 	}
+	@RequestMapping(value="/getAllPOInvoiceNo")
+	@ResponseBody
+	public List<String> getAllPoOrInvoiceNumbers(HttpServletRequest req){
+		String fileType = req.getParameter("fileType");
+		List<String> listOfPoInvoive = null;
+		if(fileType.equalsIgnoreCase("po") || fileType.equalsIgnoreCase("purchaseOrder")){
+			listOfPoInvoive = pdfService.getAllPONumber();
+		} else if(fileType.equals("invoice")){//Invoice
+			listOfPoInvoive = pdfService.getAllInvoiceNumber();
+		} else {
+			listOfPoInvoive = new ArrayList<>();
+		}
+		//pdfService.
+		return listOfPoInvoive;
+	}
+	
 	private ModelAndView getParsePurchaseOrder(String fileName){
-		List<String> poNumbersList = pdfService.getAllPONumber();
+		//pdfService.savePoDetails(null);
+		//List<String> poNumbersList = pdfService.getAllPONumber();
 		String filename="";
 		LinkedHashMap<String,String> valueMap=new LinkedHashMap<String, String>();
 		Mapclas contactForm = null;

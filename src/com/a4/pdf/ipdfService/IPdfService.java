@@ -1,9 +1,11 @@
 package com.a4.pdf.ipdfService;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.a4.pdf.entity.InvoiceDetailsEntity;
 import com.a4.pdf.entity.POEntity;
+import com.a4.pdf.model.InVoiceBean;
 import com.a4.pdf.model.PurchaseOrder;
 
 public interface IPdfService {
@@ -15,8 +17,8 @@ public interface IPdfService {
 
 	public List<String> getAllInvoiceNumber();
 
-	public POEntity getPODetails(String poNo);
+	public List<PurchaseOrder> getPODetails(String poNo);
 
-	public InvoiceDetailsEntity getInvoiceDetails(String invoiceNo);
+	public InVoiceBean getInvoiceDetails(String invoiceNo);
 
 }

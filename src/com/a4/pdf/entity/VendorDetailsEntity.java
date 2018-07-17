@@ -1,5 +1,7 @@
 package com.a4.pdf.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "vendor_details")
-public class VendorDetailsEntity {
+public class VendorDetailsEntity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7180805131481651212L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SrNo")
@@ -28,7 +34,6 @@ public class VendorDetailsEntity {
 	private String terms;
 	@Column(name = "SalesPerson")
 	private String salesPerson;
-
 	@Column(name = "ProductDetails")
 	private String productDetails;
 	@Column(name = "ProductCriteriaInstruction")
@@ -41,14 +46,15 @@ public class VendorDetailsEntity {
 	private String instructionToFactory2;
 	@Column(name = "VendorAddress")
 	private String vendorAddress;
-	@Column(name="ShippingAddress")
+	@Column(name = "ShippingAddress")
 	private String shippingAddress;
-	@Column(name="LogisticInfo")
+	@Column(name = "LogisticInfo")
 	private String logisticInfo;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "PO_Ref_Id",referencedColumnName="PONumber")
-	private POEntity poEntity;
+	@JoinColumn(name = "PO_REF_ID", insertable = true, updatable = false, referencedColumnName = "PONumber")
+	private POEntity purchaseOrder;
+
 	public Integer getSrNo() {
 		return srNo;
 	}
@@ -153,13 +159,14 @@ public class VendorDetailsEntity {
 		this.vendorAddress = vendorAddress;
 	}
 
-	public POEntity getPoEntity() {
-		return poEntity;
+	public POEntity getPurchaseOrder() {
+		return purchaseOrder;
 	}
 
-	public void setPoEntity(POEntity poEntity) {
-		this.poEntity = poEntity;
+	public void setPurchaseOrder(POEntity purchaseOrder) {
+		this.purchaseOrder = purchaseOrder;
 	}
+
 	public String getShippingAddress() {
 		return shippingAddress;
 	}
@@ -175,6 +182,5 @@ public class VendorDetailsEntity {
 	public void setLogisticInfo(String logisticInfo) {
 		this.logisticInfo = logisticInfo;
 	}
-
 
 }
