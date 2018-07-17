@@ -136,4 +136,12 @@ public class InvoiceDetailsEntity {
 		this.custPo = custPo;
 	}
 
+	public InvoiceAddressEntity getInvoiceAddress() {
+		return invoiceAddress;
+	}
+
+	public void setInvoiceAddress(InvoiceAddressEntity invoiceAddress) {
+		this.invoiceAddress = invoiceAddress;
+	}
+
 }
