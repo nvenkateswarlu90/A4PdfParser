@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -31,7 +30,9 @@ public class Invoiceprofitmaker {
 	    List<String> repeatRows = new ArrayList<>();
 		Set<String> productXids = new HashSet<String>();
 		
-			
+		String ShippedColor="";	
+		String Shipped2Color="";
+		
 			_LOGGER.info("Total sheets in excel::"+workbook.getNumberOfSheets());
 		    Sheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> iterator = sheet.iterator();
@@ -121,6 +122,7 @@ public class Invoiceprofitmaker {
       							String email=getCellValueStrinOrInt(cell);
       							INVOICE_MAP.put("Email", email);
     							break;*/
+    						
       						case 9://CUST_Sale Table Data Customer Po #
 
       							String CustomerPo=getCellValueStrinOrInt(cell);
@@ -211,151 +213,146 @@ public class Invoiceprofitmaker {
       							String AmountField=getCellValueStrinOrInt(cell);
       							INVOICE_MAP.put("Amount Field", AmountField);
 
-      							
-          					/*	//PDF_MAP.put("Table Data Quantity", Quantity);
-      							if(!StringUtils.isEmpty(Quantity)){
-          						if(PDF_MAP.containsKey(Quantity)){
-          				           String str12=PDF_MAP.get(Quantity);
-          				           str12=str12+"#####";
-          				         PDF_MAP.put(Quantity, str12);
-          				          }else{
-          				        	PDF_MAP.put(Quantity, "Quantity"+":"+Quantity);
-          				          }
-      							}*/
-          						//add this value as key in map && values to be appended by #####
+   
     							break;
     							
       						case 22://Criteria 1 Table Shipped
 
-      							String ShippedColor=getCellValueStrinOrInt(cell);
-      							INVOICE_MAP.put("Criteria 1 Table Shipped", ShippedColor);
-
+      						    ShippedColor=getCellValueStrinOrInt(cell);
+      							if(!StringUtils.isEmpty(ShippedColor)){
+      							if(INVOICE_MAP.containsKey(ShippedColor)){
+      						     String Example=INVOICE_MAP.get(ShippedColor);
+      						     Example=Example+"#####";
+      						    INVOICE_MAP.put(ShippedColor, Example);
+      							}else
+      							{
+          							INVOICE_MAP.put("Criteria 1 Table Shipped", ShippedColor);
+	
+      							}
+      							}
       							
-          						/*//PDF_MAP.put("Table Data SKU", SKU);
-      							if(!StringUtils.isEmpty(SKU)){
-          						if(PDF_MAP.containsKey(Quantity)){
-           				           String str12=PDF_MAP.get(Quantity);
-           				        SKU=str12+"#####"+"SKU"+":"+SKU;
-           				         PDF_MAP.put(Quantity, SKU);
-           				          }
-      							}*/
+
     							break;
     							
       						case 23://Criteria 1 Table Xtra Small
 
       							String XtraSmall=getCellValueStrinOrInt(cell);
-      							INVOICE_MAP.put("Criteria 1 Table Xtra Small", XtraSmall);
+      							if(!StringUtils.isEmpty(XtraSmall)){
+          						if(INVOICE_MAP.containsKey(ShippedColor)){
+          							String Example=INVOICE_MAP.get(ShippedColor);
+          							XtraSmall=Example+"#####"+"Criteria 1 Table Xtra Small"+":"+XtraSmall;
+          							INVOICE_MAP.put("Criteria 1 Table Xtra Small", XtraSmall);
+          						}
+      							}
 
-      							
-          						/*//PDF_MAP.put("Table Data Description", Description);
-      							if(!StringUtils.isEmpty(Description)){
-      							if(PDF_MAP.containsKey(Quantity)){
-            				           String str12=PDF_MAP.get(Quantity);
-            				           Description=str12+"#####"+"Description"+":"+Description;
-            				         PDF_MAP.put(Quantity, Description);
-            				          }
-      							}*/
     							break;
     						
       						case 24://Criteria 1 Table Small
 
       							String Small=getCellValueStrinOrInt(cell);
-      							INVOICE_MAP.put("Criteria 1 Table Small", Small);
+      							if(!StringUtils.isEmpty(Small)){
+              						if(INVOICE_MAP.containsKey(ShippedColor)){
+              							String Example=INVOICE_MAP.get(ShippedColor);
+              							Small=Example+"#####"+"Criteria 1 Table Small"+":"+Small;
+              							INVOICE_MAP.put("Criteria 1 Table Small", Small);
+              						}
+          							}
 
-      							
-      							/*if(!StringUtils.isEmpty(Unit)){
-          						//PDF_MAP.put("Table Data Unit", Unit);
-      							if(PDF_MAP.containsKey(Quantity)){
-         				           String str12=PDF_MAP.get(Quantity);
-         				          Unit=str12+"#####"+"Unit"+":"+Unit;
-         				         PDF_MAP.put(Quantity, Unit);
-         				          }
-      						}*/
 
     							break;
       						case 25://Criteria 1 Table Medium
 
       							String Medium=getCellValueStrinOrInt(cell);
-      							INVOICE_MAP.put("Criteria 1 Table Medium", Medium);
+      							if(!StringUtils.isEmpty(Medium)){
+              						if(INVOICE_MAP.containsKey(ShippedColor)){
+              							String Example=INVOICE_MAP.get(ShippedColor);
+              							Medium=Example+"#####"+"Criteria 1 Table Small"+":"+Medium;
+              							INVOICE_MAP.put("Criteria 1 Table Medium", Medium);
+              						}
+          							}
 
-      							
-      							/*if(!StringUtils.isEmpty(Cost)){
-          						//PDF_MAP.put("Table Data Cost", Cost);
-      							//String Unit=getCellValueStrinOrInt(cell);
-          						//PDF_MAP.put("Table Data Unit", Unit);
-      							if(PDF_MAP.containsKey(Quantity)){
-         				           String str12=PDF_MAP.get(Quantity);
-         				          Cost=str12+"#####"+"Cost"+":"+Cost;
-         				         PDF_MAP.put(Quantity, Cost);
-         				          }}
-        						*/
 
     							break;
       						case 26://Criteria 1 Table Large
 
       							String  Large=getCellValueStrinOrInt(cell);
-      							INVOICE_MAP.put("Criteria 1 Table Large", Large);
-
-      							
-      							/*if(!StringUtils.isEmpty(DataPer)){
-          						//PDF_MAP.put("Table Data Per", DataPer);
-      							if(PDF_MAP.containsKey(Quantity)){
-          				           String str12=PDF_MAP.get(Quantity);
-          				         DataPer=str12+"#####"+"DataPer"+":"+DataPer;
-          				         PDF_MAP.put(Quantity, DataPer);
-          				          }
-      						}*/
+      							if(!StringUtils.isEmpty(Large)){
+              						if(INVOICE_MAP.containsKey(ShippedColor)){
+              							String Example=INVOICE_MAP.get(ShippedColor);
+              							Large=Example+"#####"+"Criteria 1 Table Large"+":"+Large;
+              							INVOICE_MAP.put("Criteria 1 Table Large", Large);
+              						}
+          							}
 
     							break;
       						case 27://Criteria 1 Table X-Large
 
       							String XLarge=getCellValueStrinOrInt(cell);
-      							INVOICE_MAP.put("Criteria 1 Table X-Large", XLarge);
+      							if(!StringUtils.isEmpty(XLarge)){
+              						if(INVOICE_MAP.containsKey(ShippedColor)){
+              							String Example=INVOICE_MAP.get(ShippedColor);
+              							XLarge=Example+"#####"+"Criteria 1 Table X-Large"+":"+XLarge;
+              							INVOICE_MAP.put("Criteria 1 Table X-Large", XLarge);
+              						}
+          							}
 
-      							
-      							/*if(!StringUtils.isEmpty(Total)){
-          						//PDF_MAP.put("Table Data Total", Total);
-      							if(PDF_MAP.containsKey(Quantity)){
-           				           String str12=PDF_MAP.get(Quantity);
-           				        Total=str12+"#####"+"Total"+":"+Total;
-           				         PDF_MAP.put(Quantity, Total);
-           				          }}*/
-          						//over here append this value by @@@@@
     							break;
       						case 28://Criteria 1 Table XX-Large
 
       							String XXLarge=getCellValueStrinOrInt(cell);
-      							INVOICE_MAP.put("Criteria 1 Table XX-Large", XXLarge);
+      							if(!StringUtils.isEmpty(XXLarge)){
+              						if(INVOICE_MAP.containsKey(ShippedColor)){
+              							String Example=INVOICE_MAP.get(ShippedColor);
+              							XXLarge=Example+"#####"+"Criteria 1 Table XX-Large"+":"+XXLarge;
+              							INVOICE_MAP.put("Criteria 1 Table XX-Large", XXLarge);
+              						}
+          							}
 
-      							
-      							/*if(!StringUtils.isEmpty(Data8)){
-          						//PDF_MAP.put("Table Data 8", Data8);
-      							if(PDF_MAP.containsKey(Quantity)){
-            				           String str12=PDF_MAP.get(Quantity);
-            				           Data8=str12+"#####"+"Data8"+":"+Data8;
-            				         PDF_MAP.put(Quantity, Data8);
-            				          }
-      							}*/
+      			
     							break;
     							
     							
       						case 29://Criteria 2 Table Shipped
-      							String Shipped2Color=getCellValueStrinOrInt(cell);
-      							INVOICE_MAP.put("Criteria 2 Table Shipped", Shipped2Color);
+      							Shipped2Color=getCellValueStrinOrInt(cell);
+      							if(!StringUtils.isEmpty(ShippedColor)){
+          							if(INVOICE_MAP.containsKey(Shipped2Color)){
+          						     String Example=INVOICE_MAP.get(Shipped2Color);
+          						     Example=Example+"#####";
+          						    INVOICE_MAP.put(Shipped2Color, Example);
+          							}else
+          							{
+              							INVOICE_MAP.put("Criteria 2 Table Shipped", Shipped2Color);
+    	
+          							}
+          							}
 
       							
       							break;
       							
       						case 30://Criteria 2 Table XXX-Large
       							String XXXLarge=getCellValueStrinOrInt(cell);
-      							INVOICE_MAP.put("Criteria 2 Table XXX-Large", XXXLarge);
+      							if(!StringUtils.isEmpty(XXXLarge)){
+              						if(INVOICE_MAP.containsKey(Shipped2Color)){
+              							String Example=INVOICE_MAP.get(Shipped2Color);
+              							XXXLarge=Example+"#####"+"Criteria 2 Table XXX-Large"+":"+XXXLarge;
+              							INVOICE_MAP.put("Criteria 2 Table XXX-Large", XXXLarge);
+              						}
+          							}
+      							
 
       							
       							break;
       							
       						case 31://Criteria 2 Table XXXXL
       							String XXXXL=getCellValueStrinOrInt(cell);
-      							INVOICE_MAP.put("Criteria 2 Table XXXXL", XXXXL);
+      							if(!StringUtils.isEmpty(XXXXL)){
+              						if(INVOICE_MAP.containsKey(Shipped2Color)){
+              							String Example=INVOICE_MAP.get(Shipped2Color);
+              							XXXXL=Example+"#####"+"Criteria 2 Table XXXXL"+":"+XXXXL;
+              							INVOICE_MAP.put("Criteria 2 Table XXXXL", XXXXL);
+              						}
+          							}
+      							
 
       							
       							break;
