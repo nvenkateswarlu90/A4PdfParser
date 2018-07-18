@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.a4.pdf.entity.InvoiceAddressEntity;
 import com.a4.pdf.entity.InvoiceDetailsEntity;
 import com.a4.pdf.entity.POEntity;
 import com.a4.pdf.entity.VendorDetailsEntity;
 import com.a4.pdf.ipdfDao.IpdfDao;
 import com.a4.pdf.ipdfService.IPdfService;
+import com.a4.pdf.model.InVoiceBean;
 import com.a4.pdf.model.PurchaseOrder;
 
 
@@ -75,13 +77,55 @@ public class PdfServiceImpl implements IPdfService {
       return pdfDao.getAllPONumber();
 	}
 	@Override
-	public POEntity getPODetails(String poNo) {
-      		return pdfDao.getPODetails(poNo);
+	public List<PurchaseOrder> getPODetails(String poNo) {
+		POEntity poEntity = pdfDao.getPODetails(poNo);
+		List<PurchaseOrder> poList= new ArrayList<PurchaseOrder>();
+		List<VendorDetailsEntity> vendorList = poEntity.getListOfVendorDetails();
+		PurchaseOrder po = null;
+		for (VendorDetailsEntity vendorDetailsEntity : vendorList) {
+			po = new PurchaseOrder();
+			po.setLogisticInfo(vendorDetailsEntity.getLogisticInfo());
+			po.setPoAddress(poEntity.getPoAddress());
+			po.setVendorAddress(vendorDetailsEntity.getVendorAddress());
+			po.setVendorNo(vendorDetailsEntity.getVendorNo());
+			po.setShippingRequest(vendorDetailsEntity.getShippingAddress());
+			po.setPoNo(poEntity.getPoNumber());
+			po.setJob(Integer.toString(poEntity.getJobId()));
+			po.setShippingAddress(vendorDetailsEntity.getShippingAddress());
+			po.setCustomerPo(vendorDetailsEntity.getCustPo());
+			po.setOrderDate(vendorDetailsEntity.getOrdDate());
+			po.setTerms(vendorDetailsEntity.getTerms());
+			po.setSalesPerson(vendorDetailsEntity.getSalesPerson());
+			po.setOrderDetails(new StringBuilder(vendorDetailsEntity.getProductDetails()));
+			po.setProductcriteria(new StringBuilder(vendorDetailsEntity.getProductCriteriaInstruction()));
+			po.setProductImprintLocation(vendorDetailsEntity.getImprintLocation());
+			po.setInstructionsToFactory1(vendorDetailsEntity.getInstructionToFactory1());
+			po.setInstructionsToFactory2(vendorDetailsEntity.getInstructionToFactory2());
+			poList.add(po);
+		}
+		return poList;
 	}
 	@Override
-	public InvoiceDetailsEntity getInvoiceDetails(String invoiceNo) {
-		return pdfDao.getInvoiceDetails(invoiceNo);
+	public InVoiceBean getInvoiceDetails(String invoiceNo) {
+		InvoiceDetailsEntity inVoiceEntity = pdfDao.getInvoiceDetails(invoiceNo);
+		InVoiceBean invoObj= new InVoiceBean();
+		InvoiceAddressEntity invAddress = inVoiceEntity.getInvoiceAddress();
+		invoObj.setInvoiceNumber(inVoiceEntity.getInvoiceNo());
+		invoObj.setOrderNo(inVoiceEntity.getOrdNo());
+		invoObj.setShipDate(inVoiceEntity.getShipDate());
+		invoObj.setInvoiceDate(inVoiceEntity.getInvoiceDate());
+		invoObj.setSalesPerson(inVoiceEntity.getSalesPerson());
+		invoObj.setCustomerDetails(inVoiceEntity.getCustomerDetails());
+		invoObj.setLogisticInfo(inVoiceEntity.getLogisticInfo());
+		invoObj.setTerms(inVoiceEntity.getTerms());
+		invoObj.setShipAccount(inVoiceEntity.getShipAccount());
+		invoObj.setCustPO(inVoiceEntity.getCustPo());
+		invoObj.setInvoiceAddress(invAddress.getInvoiceAddress());
+		invoObj.setBillAddress(invAddress.getBillAddress());
+		invoObj.setShippingAddress(invAddress.getShippingAddress());
+		return invoObj;
 	}
+
 	public IpdfDao getPdfDao() {
 		return pdfDao;
 	}
