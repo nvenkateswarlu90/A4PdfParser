@@ -89,7 +89,7 @@ h4 {
 	<div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
 <div class="form-group">
   <label for="sel1">Sub List</label>
-  <select class="form-control" id="poInvId">
+  <select class="form-control" id="poInvId" name="poInName" >
     <option>Select PO/Invoice number</option>
   </select>
 </div>
@@ -116,24 +116,6 @@ $(document).on('click', '.browse', function(){
 	  $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
 	});
 	
-	$(document).ready(function() {
-		$('#xyz').change(function(event) {
-			//alert('select pdf type file');
-		        var sports = $("select#pdfType").val();
-		        //var sports = $("select#pdfType").val();
-		        $.get(
-		        		'JsonServlet', {
-		                sportsName : sports
-		        }, function(response) {
-
-		        var select = $('#poInvId');
-		        select.find('option').remove();
-		          $.each(response, function(index, value) {
-		          $('<option>').val(value).text(value).appendTo(select);
-		      });
-		        });
-		        });
-		});
 //getPoInvoiceNumbers()
 function getPoInvoiceNumbers() {
     //alert('getPOInvoiceNumbers');    
@@ -149,6 +131,7 @@ function getPoInvoiceNumbers() {
 		        select.find('option').remove();
 		          $.each(response, function(index, value) {
 		          $('<option>').val(value).text(value).appendTo(select);
+		          poInvId= $('#poInvId').val(value);
 		      });
 		        },
         error: function(e){
@@ -156,6 +139,23 @@ function getPoInvoiceNumbers() {
         }
         });
         }
+ //function showData(){
+	// alert('showdata');
+	// var povid = $('#poInvId').val(); 
+	 //alert(povid);
+		//alert('fileType'+fileType);
+	 /*        $.ajax({
+	        type: "GET",
+	        url: "showData",
+	        data: "id=" + povid,
+	        success: function(response){
+	        
+			},
+	        error: function(e){
+	        alert('Error: ' + e);
+	        }
+	        });
+	        } */
 
 	</script>
 </body>
