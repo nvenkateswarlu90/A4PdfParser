@@ -68,22 +68,6 @@ public class PdfServiceImpl implements IPdfService {
 	@Override
 	public void savePoDetails(List<PurchaseOrder> pruchaseOrdersList) {
 		POEntity poEntity = new POEntity();
-		List<VendorDetailsEntity> listOfVendorDetails = new ArrayList<>();
-		VendorDetailsEntity vendorDetails = new VendorDetailsEntity();
-		vendorDetails.setCustPo("123");
-		vendorDetails.setImprintLocation("side Location");
-		vendorDetails.setInstructionToFactory1("instructiontofactory");
-		vendorDetails.setInstructionToFactory2("instructiontofactory2");
-		vendorDetails.setLogisticInfo("via amazon");
-		vendorDetails.setProductDetails("red,black,2x");
-		//listOfVendorDetails.add(vendorDetails);
-		poEntity.setJobId(123456);
-		poEntity.setPoAddress("kp aurum,Mumbai");
-		poEntity.setPoNumber("1201");
-		poEntity.setVendorNo("Puma");
-		poEntity.addVendorDetailsEntity(vendorDetails);
-		//poEntity.setListOfVendorDetails(listOfVendorDetails);
-		/*// POShippingDetailsEntity pOShippingDetailsEntity = null;
 		VendorDetailsEntity vendorDetailsEntity = null;
 		int purchaseOrderNo = 1;
 		for (PurchaseOrder purchaseOrder : pruchaseOrdersList) {
@@ -99,35 +83,8 @@ public class PdfServiceImpl implements IPdfService {
 				vendorDetailsEntity = getVendorDetals(purchaseOrder);
 			}
 			purchaseOrderNo++;
-			listOfVendorDetails.add(vendorDetailsEntity);
+			poEntity.addVendorDetailsEntity(vendorDetailsEntity);
 		}
-		poEntity.setListOfVendorDetails(listOfVendorDetails);
-		pdfDao.savePoDetails(poEntity);*/
-		pdfDao.savePoDetails(poEntity);
-	}
-	//@Override
-	public void savePoDetails1(List<PurchaseOrder> pruchaseOrdersList) {
-		POEntity poEntity = new POEntity();
-		List<VendorDetailsEntity> listOfVendorDetails = new ArrayList<>();
-		// POShippingDetailsEntity pOShippingDetailsEntity = null;
-		VendorDetailsEntity vendorDetailsEntity = null;
-		int purchaseOrderNo = 1;
-		for (PurchaseOrder purchaseOrder : pruchaseOrdersList) {
-			vendorDetailsEntity = new VendorDetailsEntity();
-			if (purchaseOrderNo == 1) {
-				poEntity.setPoNumber(purchaseOrder.getPoNo());
-				poEntity.setJobId(Integer.parseInt(purchaseOrder.getJob()));
-				poEntity.setPoAddress(purchaseOrder.getPoAddress());
-				poEntity.setVendorNo(purchaseOrder.getVendorNo());
-				// set Vendor Details
-				vendorDetailsEntity = getVendorDetals(purchaseOrder);
-			} else {
-				vendorDetailsEntity = getVendorDetals(purchaseOrder);
-			}
-			purchaseOrderNo++;
-			listOfVendorDetails.add(vendorDetailsEntity);
-		}
-		poEntity.setListOfVendorDetails(listOfVendorDetails);
 		pdfDao.savePoDetails(poEntity);
 	}
 	private VendorDetailsEntity getVendorDetals(PurchaseOrder purchaseOrder) {
@@ -206,6 +163,7 @@ public class PdfServiceImpl implements IPdfService {
 		invoObj.setShippingAddress(invAddress.getShippingAddress());
 		return invoObj;
 	}
+
 	public IpdfDao getPdfDao() {
 		return pdfDao;
 	}

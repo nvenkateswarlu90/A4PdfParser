@@ -12,8 +12,10 @@ import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +28,7 @@ import com.a4.pdf.parser.ConvertCsvToExcel;
 import com.a4.pdf.parser.Mapclas;
 import com.a4.pdf.parser.ProfitMakerPoMapper;
 import com.a4.pdf.parser.PurOrdParser;
+import com.a4.pdf.pdfDaoImpl.PdfDaoImpl;
 
 
 
@@ -57,6 +60,7 @@ public class FileUpload {
 		} else{//Invoice
 			
 		}
+		//pdfService.getPODetails("1201");
 		return "dropDown";
 	}
 	@RequestMapping(value="/getAllPOInvoiceNo")
@@ -74,7 +78,12 @@ public class FileUpload {
 		//pdfService.
 		return listOfPoInvoive;
 	}
-	
+	@RequestMapping(value="/showData")
+	public String showData(HttpServletRequest req,@ModelAttribute("poInvNumber") String dd){
+		String fileType = req.getParameter("id");
+		return "profitMakerData";
+	// String dd1 = id;
+	}	
 	private ModelAndView getParsePurchaseOrder(String fileName){
 		//pdfService.savePoDetails(null);
 		//List<String> poNumbersList = pdfService.getAllPONumber();
