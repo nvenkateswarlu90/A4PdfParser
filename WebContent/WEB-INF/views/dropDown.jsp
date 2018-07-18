@@ -73,8 +73,7 @@ h4 {
 <body>
 <h2>Show Data</h2>
 <div class="container">
-<form:form name="uploadBean"  enctype="multipart/form-data"
-								modelAttribute="uploadBean" action="parseFile">
+<form:form   enctype="multipart/form-data"  action="showData">
    <div class="row">
   <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
  <div class="form-group">
@@ -97,7 +96,7 @@ h4 {
 
 	</div>
 	</div>
-	<button type="button" class="btn btn-primary col-md-4"> Submit </button>
+	<button type="submit" class="btn btn-primary col-md-4"> Submit </button>
 	
 	
 	<a class="btn btn-primary col-md-4" style="float:right" href="<c:url value='/uploadFile.htm' />"><i class="fa fa-home" aria-hidden="true"></i> Home</a>

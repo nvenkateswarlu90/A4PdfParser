@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import com.a4.pdf.entity.InvoiceDetailsEntity;
 import com.a4.pdf.entity.POEntity;
@@ -133,13 +134,12 @@ public class PdfDaoImpl implements IpdfDao {
 	@Override
 	public InvoiceDetailsEntity getInvoiceDetails(String invoiceNo) {
 		Session session = null;
+		InvoiceDetailsEntity invoiceDetails = null;
 		try {
 			session = sessionFactory.openSession();
 			Criteria criteria = session.createCriteria(POEntity.class);
-			criteria.setProjection(Projections.property("poNumber"));
-			List<String> poNumbersList = criteria.list();
-			// String data = (String) criteria.uniqueResult();
-			//return poNumbersList;
+			criteria.add(Restrictions.eq("invoiceNo",invoiceNo));
+			invoiceDetails = (InvoiceDetailsEntity) criteria.uniqueResult();
 
 		} catch (Exception e) {
 			_LOGGER.error("Unable to fetch PO numbers:" + e.getMessage());
@@ -152,18 +152,18 @@ public class PdfDaoImpl implements IpdfDao {
 				}
 			}
 		}
-		return null;
+		return invoiceDetails;
 	}
 
 	@Override
 	public POEntity getPODetails(String poNo) {
 		Session session = null;
+		POEntity poEntity = null;
 		try {
 			session = sessionFactory.openSession();
 			Criteria criteria = session.createCriteria(POEntity.class);
-			criteria.setProjection(Projections.property("poNumber"));
-			List<String> poNumbersList = criteria.list();
-			// String data = (String) criteria.uniqueResult();
+			criteria.add(Restrictions.eq("poNumber",poNo));
+			 poEntity = (POEntity) criteria.uniqueResult();
 			//return poNumbersList;
 
 		} catch (Exception e) {
@@ -177,7 +177,7 @@ public class PdfDaoImpl implements IpdfDao {
 				}
 			}
 		}
-		return null;
+		return poEntity;
 	}
 
 	public SessionFactory getSessionFactory() {

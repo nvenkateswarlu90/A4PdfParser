@@ -25,6 +25,7 @@ import com.a4.pdf.parser.ConvertCsvToExcel;
 import com.a4.pdf.parser.Mapclas;
 import com.a4.pdf.parser.ProfitMakerPoMapper;
 import com.a4.pdf.parser.PurOrdParser;
+import com.a4.pdf.pdfDaoImpl.PdfDaoImpl;
 
 
 
@@ -49,10 +50,11 @@ public class FileUpload {
 		System.out.println(file.getOriginalFilename());
 		System.out.println(uploadBean.getFileType());
 		if(uploadBean.getFileType().equals("PO")){
-			//getParsePurchaseOrder(file.getOriginalFilename());
+			getParsePurchaseOrder(file.getOriginalFilename());
 		} else{//Invoice
 			
 		}
+		pdfService.getPODetails("1201");
 		return "dropDown";
 	}
 	@RequestMapping(value="/getAllPOInvoiceNo")
@@ -70,9 +72,14 @@ public class FileUpload {
 		//pdfService.
 		return listOfPoInvoive;
 	}
+	@RequestMapping(value="/showData")
+	public String showData(HttpServletRequest req){
+		
+		return "";
+	}
 	
 	private ModelAndView getParsePurchaseOrder(String fileName){
-		//pdfService.savePoDetails(null);
+		pdfService.savePoDetails(null);
 		//List<String> poNumbersList = pdfService.getAllPONumber();
 		String filename="";
 		LinkedHashMap<String,String> valueMap=new LinkedHashMap<String, String>();
