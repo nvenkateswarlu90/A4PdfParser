@@ -22,8 +22,46 @@ public class PdfServiceImpl implements IPdfService {
 	private IpdfDao pdfDao;
 
 	@Override
-	public void saveInvoiceDetails() {
-		pdfDao.saveInvoiceDetails(new InvoiceDetailsEntity());
+	public void saveInvoiceDetails(InVoiceBean invoObj) {
+		InvoiceDetailsEntity invoDetailEntity=new InvoiceDetailsEntity();
+		InvoiceAddressEntity invoiceAddress=new InvoiceAddressEntity();
+		/*invoDetailEntity.setSrNo(Integer.parseInt(invoObj.getSrNo()));
+		invoDetailEntity.setInvoiceNo(invoObj.getInvoiceNumber());
+		invoDetailEntity.setOrdNo(invoObj.getOrderNo());
+		invoDetailEntity.setOrderDate(invoObj.getOrderDate());
+		invoDetailEntity.setShipDate(invoObj.getShipDate());
+		invoDetailEntity.setInvoiceDate(invoObj.getInvoiceDate());
+		invoDetailEntity.setSalesPerson(invoObj.getSalesPerson());
+		invoDetailEntity.setCustomerDetails(invoObj.getCustomerDetails());
+		invoDetailEntity.setLogisticInfo(invoObj.getLogisticInfo());
+		invoDetailEntity.setTerms(invoObj.getTerms());
+		invoDetailEntity.setShipAccount(invoObj.getShipAccount());
+		invoDetailEntity.setCustPo(invoObj.getCustPO());
+		invoiceAddress.setBillAddress(invoObj.getBillAddress());
+		invoiceAddress.setInvoiceAddress(invoObj.getInvoiceAddress());
+		invoiceAddress.setShippingAddress(invoObj.getShippingAddress());
+		invoDetailEntity.setInvoiceAddress(invoiceAddress);*/
+		//invoDetailEntity.setSrNo(9879);
+		invoDetailEntity.setInvoiceNo("123123");
+		invoDetailEntity.setOrdNo("123999");
+		invoDetailEntity.setOrderDate("11/07/1990");
+		invoDetailEntity.setShipDate("22/2/12");
+		invoDetailEntity.setInvoiceDate("23/1/23");
+		invoDetailEntity.setSalesPerson("atrs rocks");
+		invoDetailEntity.setCustomerDetails("Cherry berry");
+		invoDetailEntity.setLogisticInfo("Harry Kane");
+		invoDetailEntity.setTerms("IUh asdbiasd");
+		invoDetailEntity.setShipAccount("Shipping acoount");
+		invoDetailEntity.setCustPo("123PO");
+		//invoiceAddress.setInvoiceNumber("123123");
+		invoiceAddress.setBillAddress("Hyderabad");
+		invoiceAddress.setInvoiceAddress("Banglore ,mumbai");
+		invoiceAddress.setShippingAddress("pearl harbour");
+		invoDetailEntity.setInvoiceAddress(invoiceAddress);
+		//InvoiceDetailsEntity inVoiceEntity = pdfDao.getInvoiceDetails(invoObj);
+		//InVoiceBean invoObj= new InVoiceBean();
+		//return invoObj;
+		pdfDao.saveInvoiceDetails(invoDetailEntity);
 	}
 
 	
@@ -175,5 +213,6 @@ public class PdfServiceImpl implements IPdfService {
 	public void setPdfDao(IpdfDao pdfDao) {
 		this.pdfDao = pdfDao;
 	}
+
 
 }

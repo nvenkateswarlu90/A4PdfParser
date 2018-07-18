@@ -12,10 +12,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="invoice_details")
 public class InvoiceDetailsEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SrNo")
 	private Integer srNo;
+	@Id
 	@Column(name = "InvoiceNumber")
 	private String invoiceNo;
 	@Column(name = "OrderNo")

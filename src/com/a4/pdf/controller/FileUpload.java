@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.a4.pdf.ipdfService.IPdfService;
+import com.a4.pdf.model.InVoiceBean;
 import com.a4.pdf.model.PurchaseOrder;
 import com.a4.pdf.model.UploadBean;
 import com.a4.pdf.parser.ConvertCsvToExcel;
@@ -48,6 +49,9 @@ public class FileUpload {
 		MultipartFile file =  uploadBean.getFile();
 		System.out.println(file.getOriginalFilename());
 		System.out.println(uploadBean.getFileType());
+		
+		pdfService.saveInvoiceDetails(new InVoiceBean());
+		//pdfService.savePoDetails(new ArrayList<PurchaseOrder>());
 		if(uploadBean.getFileType().equals("PO")){
 			//getParsePurchaseOrder(file.getOriginalFilename());
 		} else{//Invoice

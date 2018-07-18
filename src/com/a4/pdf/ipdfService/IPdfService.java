@@ -11,7 +11,7 @@ import com.a4.pdf.model.PurchaseOrder;
 public interface IPdfService {
 	public void savePoDetails(List<PurchaseOrder> purchaseOrder);
 
-	public void saveInvoiceDetails();
+	//public void saveInvoiceDetails();
 
 	public List<String> getAllPONumber();
 
@@ -20,5 +20,7 @@ public interface IPdfService {
 	public List<PurchaseOrder> getPODetails(String poNo);
 
 	public InVoiceBean getInvoiceDetails(String invoiceNo);
+
+	public void saveInvoiceDetails(InVoiceBean invoObj);
 
 }
