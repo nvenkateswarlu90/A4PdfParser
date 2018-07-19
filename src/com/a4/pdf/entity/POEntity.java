@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,7 +34,7 @@ public class POEntity implements Serializable{
 	@Column(name = "POAddress")
 	private String poAddress;
 	
-	@OneToMany(mappedBy = "purchaseOrder",cascade = CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "purchaseOrder",cascade = CascadeType.ALL)
 	//@Cascade(CascadeType.ALL)
 	private List<VendorDetailsEntity> listOfVendorDetails = new ArrayList<>();
 

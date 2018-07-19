@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.a4.pdf.entity.InvoiceAddressEntity;
 import com.a4.pdf.entity.InvoiceDetailsEntity;
@@ -36,7 +37,9 @@ public class PdfServiceImpl implements IPdfService {
 			vendorDetailsEntity = new VendorDetailsEntity();
 			if (purchaseOrderNo == 1) {
 				poEntity.setPoNumber(purchaseOrder.getPoNo());
-				poEntity.setJobId(Integer.parseInt(purchaseOrder.getJob()));
+				if(!StringUtils.isEmpty(purchaseOrder.getJob())){
+					poEntity.setJobId(Integer.parseInt(purchaseOrder.getJob()));	
+				}
 				poEntity.setPoAddress(purchaseOrder.getPoAddress());
 				poEntity.setVendorNo(purchaseOrder.getVendorNo());
 				// set Vendor Details
@@ -88,16 +91,20 @@ public class PdfServiceImpl implements IPdfService {
 			po.setPoAddress(poEntity.getPoAddress());
 			po.setVendorAddress(vendorDetailsEntity.getVendorAddress());
 			po.setVendorNo(vendorDetailsEntity.getVendorNo());
-			po.setShippingRequest(vendorDetailsEntity.getShippingAddress());
+			po.setShippingRequest(vendorDetailsEntity.getRequestDate());
 			po.setPoNo(poEntity.getPoNumber());
-			po.setJob(Integer.toString(poEntity.getJobId()));
+			if(!StringUtils.isEmpty(poEntity.getJobId())){
+				po.setJob(Integer.toString(poEntity.getJobId()));	
+			}
 			po.setShippingAddress(vendorDetailsEntity.getShippingAddress());
 			po.setCustomerPo(vendorDetailsEntity.getCustPo());
 			po.setOrderDate(vendorDetailsEntity.getOrdDate());
 			po.setTerms(vendorDetailsEntity.getTerms());
 			po.setSalesPerson(vendorDetailsEntity.getSalesPerson());
 			po.setOrderDetails(new StringBuilder(vendorDetailsEntity.getProductDetails()));
-			po.setProductcriteria(new StringBuilder(vendorDetailsEntity.getProductCriteriaInstruction()));
+			if(!StringUtils.isEmpty(vendorDetailsEntity.getProductCriteriaInstruction())){
+				po.setProductcriteria(new StringBuilder(vendorDetailsEntity.getProductCriteriaInstruction()));	
+			}
 			po.setProductImprintLocation(vendorDetailsEntity.getImprintLocation());
 			po.setInstructionsToFactory1(vendorDetailsEntity.getInstructionToFactory1());
 			po.setInstructionsToFactory2(vendorDetailsEntity.getInstructionToFactory2());

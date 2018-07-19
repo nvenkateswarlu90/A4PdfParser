@@ -7,12 +7,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.HttpRequest;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,13 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.a4.pdf.ipdfService.IPdfService;
+import com.a4.pdf.model.InVoiceBean;
 import com.a4.pdf.model.PurchaseOrder;
 import com.a4.pdf.model.UploadBean;
 import com.a4.pdf.parser.ConvertCsvToExcel;
 import com.a4.pdf.parser.Mapclas;
 import com.a4.pdf.parser.ProfitMakerPoMapper;
 import com.a4.pdf.parser.PurOrdParser;
-import com.a4.pdf.pdfDaoImpl.PdfDaoImpl;
 
 
 
@@ -36,7 +34,6 @@ import com.a4.pdf.pdfDaoImpl.PdfDaoImpl;
 public class FileUpload {
 	//@Autowired
 	private IPdfService pdfService;
-	
 	private static Logger _LOGGER = Logger.getLogger(Class.class);
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView welcomePage(Map<String, Object> model) {
@@ -52,7 +49,7 @@ public class FileUpload {
 		System.out.println(file.getOriginalFilename());
 		System.out.println(uploadBean.getFileType());
 		if(uploadBean.getFileType().equals("PO")){
-			//getParsePurchaseOrder(file.getOriginalFilename());
+			savePurchaseOrderDetails(file.getOriginalFilename());
 		} else{//Invoice
 			
 		}
@@ -75,45 +72,79 @@ public class FileUpload {
 		return listOfPoInvoive;
 	}
 	@RequestMapping(value="/showData")
-	public String showData(HttpServletRequest req,@ModelAttribute("poInvNumber") String dd){
-		String fileType = req.getParameter("id");
-		return "profitMakerData";
-	// String dd1 = id;
+	public ModelAndView showData(@RequestParam("poInName") String poInvId,@RequestParam("pdfType") String pdfType,HttpServletRequest req){
+		ModelAndView mv = null;
+        if(pdfType.equalsIgnoreCase("purchaseOrder")){
+        	mv = getPurchaseOrderDetails(poInvId);
+        } else if(pdfType.equalsIgnoreCase("invoice")) {
+        	
+        }
+        return mv;
 	}	
-	private ModelAndView getParsePurchaseOrder(String fileName){
-		//pdfService.savePoDetails(null);
-		//List<String> poNumbersList = pdfService.getAllPONumber();
-		String filename="";
+	private void savePurchaseOrderDetails(String fileName){
+		//String filename="";
 		LinkedHashMap<String,String> valueMap=new LinkedHashMap<String, String>();
 		Mapclas contactForm = null;
-		List<PurchaseOrder> purchaseOrderList = null;
+		List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
 		try{  
-	        //String path=session.getServletContext().getRealPath("/");  
+	       //String path=session.getServletContext().getRealPath("/");  
 	       // filename=file.getOriginalFilename();  
 	          
 	       // System.out.println(path+" "+filename);  
 	        Workbook workbook=  ConvertCsvToExcel.getWorkBook(fileName);
-	        if(filename.equalsIgnoreCase("Purchase Order_ProfitMaker.pdf") || filename.equalsIgnoreCase("ProfitMaker_po_ext_description.PDF")){
+	        if(fileName.equalsIgnoreCase("Purchase Order_ProfitMaker.pdf") || fileName.equalsIgnoreCase("ProfitMaker_po_ext_description.PDF")){
 	        	purchaseOrderList = ProfitMakerPoMapper.readExcel(workbook);
-	        } else {
-	        	valueMap=PurOrdParser.readExcel(workbook);
+	        } else if(fileName.equalsIgnoreCase("Order_-_278501PurchaseOrder_124150611664.pdf")){
+	        	purchaseOrderList = PurOrdParser.readExcel(workbook);
 	        }
-	         contactForm = new Mapclas();
+	        contactForm = new Mapclas();
 			contactForm.setContactMap(valueMap);
-			
+			pdfService.savePoDetails(purchaseOrderList);	
 			//return new ModelAndView("add_contact" , "contactForm", contactForm);
 	        }catch(Exception e){
-	        	System.out.println(e);
+	        	_LOGGER.error("PO details could not be saved: "+e.getMessage());
 	        }  
-		if(filename.contains("ProfitMaker")){
+		
+		
+		/*if(filename.contains("ProfitMaker")){
 			return new ModelAndView("profitMakerData","profitMakerPODataList",purchaseOrderList);
 		} else {
 			return new ModelAndView("user","contactForm",contactForm);
-		}
-		
+		}*/
 	}
-	private void parseInvoice(){
-		
+	private void parseInvoice(String fileName){
+		LinkedHashMap<String,String> valueMap=new LinkedHashMap<String, String>();
+		Mapclas contactForm = null;
+		InVoiceBean invoice  = new InVoiceBean();
+		try{  
+	       //String path=session.getServletContext().getRealPath("/");  
+	       // filename=file.getOriginalFilename();  
+	          
+	       // System.out.println(path+" "+filename);  
+	        Workbook workbook=  ConvertCsvToExcel.getWorkBook(fileName);
+	        if(fileName.equalsIgnoreCase("Purchase Order_ProfitMaker.pdf") || fileName.equalsIgnoreCase("ProfitMaker_po_ext_description.PDF")){
+	        	//purchaseOrderList = ProfitMakerPoMapper.readExcel(workbook);
+	        } else if(fileName.equalsIgnoreCase("Order_-_278501PurchaseOrder_124150611664.pdf")){
+	        	//valueMap=PurOrdParser.readExcel(workbook);
+	        }
+	        contactForm = new Mapclas();
+			contactForm.setContactMap(valueMap);
+			
+	        }catch(Exception e){
+	        	_LOGGER.error("Invoice details could not be saved: "+e.getMessage());
+	        }  
+	}
+	
+	public ModelAndView getPurchaseOrderDetails(String purchaseOrderNo){
+		List<PurchaseOrder> pruchaseOrderList = pdfService.getPODetails(purchaseOrderNo);
+		return new ModelAndView("profitMakerData","profitMakerPODataList",pruchaseOrderList);
+	}
+	private void setSBPoDetails(LinkedHashMap<String, String> map){
+		List<PurchaseOrder> purchaseOrderList = new ArrayList<>();
+		PurchaseOrder purchaseOrder = new PurchaseOrder();
+		for (Map.Entry<String, String> details: map.entrySet()) {
+			
+		}
 	}
 	/*
 	@RequestMapping(value="/parseFile123",method=RequestMethod.POST)  
