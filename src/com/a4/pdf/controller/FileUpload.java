@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpRequest;
 import org.apache.log4j.Logger;
@@ -79,8 +80,11 @@ public class FileUpload {
 		return listOfPoInvoive;
 	}
 	@RequestMapping(value="/showData")
-	public String showData(HttpServletRequest req,@ModelAttribute("poInvNumber") String dd){
-		String fileType = req.getParameter("id");
+	public String showData(HttpServletRequest req){
+		 //String insert=(String) req.getAttribute("insert12");
+		String insert=(String)req.getParameter("org");
+		pdfService.saveInvoiceDetails(new InVoiceBean());
+		// String org = req.getParameter("org");
 		return "profitMakerData";
 	// String dd1 = id;
 	}	

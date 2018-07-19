@@ -25,7 +25,7 @@ public class PdfServiceImpl implements IPdfService {
 	public void saveInvoiceDetails(InVoiceBean invoObj) {
 		InvoiceDetailsEntity invoDetailEntity=new InvoiceDetailsEntity();
 		InvoiceAddressEntity invoiceAddress=new InvoiceAddressEntity();
-		/*invoDetailEntity.setSrNo(Integer.parseInt(invoObj.getSrNo()));
+		//invoDetailEntity.setSrNo(Integer.parseInt(invoObj.getSrNo()));
 		invoDetailEntity.setInvoiceNo(invoObj.getInvoiceNumber());
 		invoDetailEntity.setOrdNo(invoObj.getOrderNo());
 		invoDetailEntity.setOrderDate(invoObj.getOrderDate());
@@ -37,11 +37,12 @@ public class PdfServiceImpl implements IPdfService {
 		invoDetailEntity.setTerms(invoObj.getTerms());
 		invoDetailEntity.setShipAccount(invoObj.getShipAccount());
 		invoDetailEntity.setCustPo(invoObj.getCustPO());
+		invoiceAddress.setAddressId(invoObj.getInvoiceNumber());
 		invoiceAddress.setBillAddress(invoObj.getBillAddress());
 		invoiceAddress.setInvoiceAddress(invoObj.getInvoiceAddress());
 		invoiceAddress.setShippingAddress(invoObj.getShippingAddress());
-		invoDetailEntity.setInvoiceAddress(invoiceAddress);*/
-		//invoDetailEntity.setSrNo(9879);
+		invoDetailEntity.setInvoiceAddress(invoiceAddress);
+		/*//invoDetailEntity.setSrNo(9879);
 		invoDetailEntity.setInvoiceNo("123123");
 		invoDetailEntity.setOrdNo("123999");
 		invoDetailEntity.setOrderDate("11/07/1990");
@@ -53,11 +54,12 @@ public class PdfServiceImpl implements IPdfService {
 		invoDetailEntity.setTerms("IUh asdbiasd");
 		invoDetailEntity.setShipAccount("Shipping acoount");
 		invoDetailEntity.setCustPo("123PO");
+		invoiceAddress.setAddressId("123123");
 		//invoiceAddress.setInvoiceNumber("123123");
 		invoiceAddress.setBillAddress("Hyderabad");
-		invoiceAddress.setInvoiceAddress("Banglore ,mumbai");
+		//invoiceAddress.setInvoiceAddress("Banglore ,mumbai");
 		invoiceAddress.setShippingAddress("pearl harbour");
-		invoDetailEntity.setInvoiceAddress(invoiceAddress);
+		invoDetailEntity.setInvoiceAddress(invoiceAddress);*/
 		//InvoiceDetailsEntity inVoiceEntity = pdfDao.getInvoiceDetails(invoObj);
 		//InVoiceBean invoObj= new InVoiceBean();
 		//return invoObj;
