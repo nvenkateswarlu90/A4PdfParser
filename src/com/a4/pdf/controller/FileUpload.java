@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpRequest;
 import org.apache.log4j.Logger;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.a4.pdf.ipdfService.IPdfService;
+import com.a4.pdf.model.InVoiceBean;
 import com.a4.pdf.model.PurchaseOrder;
 import com.a4.pdf.model.UploadBean;
 import com.a4.pdf.parser.ConvertCsvToExcel;
@@ -51,6 +53,9 @@ public class FileUpload {
 		MultipartFile file =  uploadBean.getFile();
 		System.out.println(file.getOriginalFilename());
 		System.out.println(uploadBean.getFileType());
+		
+		pdfService.saveInvoiceDetails(new InVoiceBean());
+		//pdfService.savePoDetails(new ArrayList<PurchaseOrder>());
 		if(uploadBean.getFileType().equals("PO")){
 			//getParsePurchaseOrder(file.getOriginalFilename());
 		} else{//Invoice
@@ -75,8 +80,11 @@ public class FileUpload {
 		return listOfPoInvoive;
 	}
 	@RequestMapping(value="/showData")
-	public String showData(HttpServletRequest req,@ModelAttribute("poInvNumber") String dd){
-		String fileType = req.getParameter("id");
+	public String showData(HttpServletRequest req){
+		 //String insert=(String) req.getAttribute("insert12");
+		String insert=(String)req.getParameter("org");
+		pdfService.saveInvoiceDetails(new InVoiceBean());
+		// String org = req.getParameter("org");
 		return "profitMakerData";
 	// String dd1 = id;
 	}	

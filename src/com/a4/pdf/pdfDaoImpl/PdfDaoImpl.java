@@ -137,8 +137,8 @@ public class PdfDaoImpl implements IpdfDao {
 		InvoiceDetailsEntity invoiceDetails = null;
 		try {
 			session = sessionFactory.openSession();
-			Criteria criteria = session.createCriteria(POEntity.class);
-			criteria.add(Restrictions.eq("invoiceNo",invoiceNo));
+			Criteria criteria = session.createCriteria(InvoiceDetailsEntity.class);
+			criteria.add(Restrictions.eq("invoiceNo",invoiceNo));//InvoiceNumber//invoiceNo
 			invoiceDetails = (InvoiceDetailsEntity) criteria.uniqueResult();
 
 		} catch (Exception e) {
