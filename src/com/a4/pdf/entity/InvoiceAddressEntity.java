@@ -12,19 +12,32 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "invoice_address")
 public class InvoiceAddressEntity {
+	
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="SrNo")
-	private Integer srNo;
+	@Column(name="Invoice_Number")
+	private String addressId;
+	
 	@Column(name = "InvoiceAddress")
 	private String invoiceAddress;
+	
 	@Column(name = "BillAddress")
 	private String billAddress;
+	
 	@Column(name = "ShippingAddress")
 	private String shippingAddress;
-	@OneToOne
+	/*@OneToOne
 	@JoinColumn(name="InvoiceNumber",nullable=false)
 	private InvoiceDetailsEntity invoiceDetails;
+	 */
+
+	public String getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(String addressId) {
+		this.addressId = addressId;
+	}
 
 	public String getInvoiceAddress() {
 		return invoiceAddress;

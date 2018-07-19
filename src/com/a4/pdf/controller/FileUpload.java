@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -48,6 +49,9 @@ public class FileUpload {
 		MultipartFile file =  uploadBean.getFile();
 		System.out.println(file.getOriginalFilename());
 		System.out.println(uploadBean.getFileType());
+		
+		pdfService.saveInvoiceDetails(new InVoiceBean());
+		//pdfService.savePoDetails(new ArrayList<PurchaseOrder>());
 		if(uploadBean.getFileType().equals("PO")){
 			savePurchaseOrderDetails(file.getOriginalFilename());
 		} else{//Invoice
@@ -72,6 +76,7 @@ public class FileUpload {
 		return listOfPoInvoive;
 	}
 	@RequestMapping(value="/showData")
+<<<<<<< HEAD
 	public ModelAndView showData(@RequestParam("poInName") String poInvId,@RequestParam("pdfType") String pdfType,HttpServletRequest req){
 		ModelAndView mv = null;
         if(pdfType.equalsIgnoreCase("purchaseOrder")){
@@ -80,6 +85,15 @@ public class FileUpload {
         	
         }
         return mv;
+=======
+	public String showData(HttpServletRequest req){
+		 //String insert=(String) req.getAttribute("insert12");
+		String insert=(String)req.getParameter("org");
+		pdfService.saveInvoiceDetails(new InVoiceBean());
+		// String org = req.getParameter("org");
+		return "profitMakerData";
+	// String dd1 = id;
+>>>>>>> refs/remotes/origin/master
 	}	
 	private void savePurchaseOrderDetails(String fileName){
 		//String filename="";
