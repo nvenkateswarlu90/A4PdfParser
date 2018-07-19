@@ -17,7 +17,7 @@ import org.springframework.util.StringUtils;
 public class Invoiceprofitmaker {
 
 	private static final Logger _LOGGER = Logger
-			.getLogger(PurOrdParser_latest.class);
+			.getLogger(Invoiceprofitmaker.class);
 
 	
 	public static LinkedHashMap<String, String> readExcel(Workbook workbook ){
