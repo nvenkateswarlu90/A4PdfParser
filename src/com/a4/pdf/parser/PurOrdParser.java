@@ -195,7 +195,7 @@ public class PurOrdParser  {
       						case 19://Ship
       							String Ship=getCellValueStrinOrInt(cell);
           						PDF_MAP.put("Ship", Ship);
-
+          						purchaseOrder.setLogisticInfo(Ship);
     				             
 
     							break;
@@ -203,7 +203,7 @@ public class PurOrdParser  {
       							String ShipAccount=getCellValueStrinOrInt(cell);
       							ShipAccount=ShipAccount.replaceAll("Ship Account:", "");
           						PDF_MAP.put("ShipAccount", ShipAccount);
-                                purchaseOrder.setLogisticInfo(ShipAccount);
+                                
 
 
     							break;

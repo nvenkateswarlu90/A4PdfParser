@@ -29,9 +29,10 @@ public class ConvertCsvToExcel {
 	} catch (IOException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
-	}*/
-	   Workbook workBook = null;
-	   if(fileName.contains("Purchase Order_ProfitMaker") || fileName.equalsIgnoreCase("ProfitMaker_po_ext_description.PDF")){//
+	}*///
+	    //D:\Sharing Files\Users\Amey\pdf demo\pdf excel parser demo
+	   Workbook workBook = null;//equalsIgnoreCase("INV1022_profitmaker.PDF")
+	   /*if(fileName.contains("Purchase Order_ProfitMaker") || fileName.equalsIgnoreCase("ProfitMaker_po_ext_description.PDF")){//
 		   try( FileInputStream inputStream = new FileInputStream("C:\\Users\\Venkat\\Documents\\pdf excel parser demo\\profitmaker\\PurchaseOrder ProfitMaker.xlsx");
 	    			Workbook workBook2 = new XSSFWorkbook(inputStream)) {
 	    		return workBook2;
@@ -40,7 +41,17 @@ public class ConvertCsvToExcel {
 			} catch(Exception e){
 				_LOGGER.error("unable to file convert into WB: "+e.getCause());
 			}
-	   } else if(fileName.contains("Order_-_278501PurchaseOrder_124150611664.pdf")){
+	   } else if(fileName.equalsIgnoreCase("INV1022_profitmaker.PDF")){//
+		   try( FileInputStream inputStream = new FileInputStream("C:\\Users\\Venkat\\Documents\\pdf excel parser demo\\profitmaker\\InvoiceProfitMaker.xlsx");
+	    			Workbook workBook2 = new XSSFWorkbook(inputStream)) {
+	    		return workBook2;
+			} catch (IOException e) {
+				_LOGGER.error("unable to file convert into excelsheet"+e);
+			} catch(Exception e){
+				_LOGGER.error("unable to file convert into WB: "+e.getCause());
+			}
+	   }
+	   else if(fileName.contains("Order_-_278501PurchaseOrder_124150611664.pdf")){
 		   try( FileInputStream inputStream = new FileInputStream("C:\\Users\\Venkat\\Documents\\pdf excel parser demo\\smartbook\\2018-05-22PO.xlsx");
 	    			Workbook workBook2 = new XSSFWorkbook(inputStream)) {
 	    		return workBook2;
@@ -50,7 +61,49 @@ public class ConvertCsvToExcel {
 				_LOGGER.error("unable to file convert into WB: "+e.getCause());
 			}
 	   } else if(fileName.equals("Order279056Invoice124150208343.pdf")){
-		   try( FileInputStream inputStream = new FileInputStream("C:\\Users\\Venkat\\Documents\\pdf excel parser demo\\invoice_8343.xlsx");
+		   try( FileInputStream inputStream = new FileInputStream("C:\\Users\\Venkat\\Documents\\pdf excel parser demo\\smartbook\\invoice_8343.xlsx");
+	    			Workbook workBook2 = new XSSFWorkbook(inputStream)) {
+	    		return workBook2;
+			} catch (IOException e) {
+				_LOGGER.error("unable to file convert into excelsheet"+e);
+			} catch(Exception e){
+				_LOGGER.error("unable to file convert into WB: "+e.getCause());
+			}
+	   } else{
+		   
+	   }*/
+	   
+	   // servere purpose
+	   if(fileName.contains("Purchase Order_ProfitMaker") || fileName.equalsIgnoreCase("ProfitMaker_po_ext_description.PDF")){//
+		   try( FileInputStream inputStream = new FileInputStream("D:\\Sharing Files\\Users\\Amey\\pdf demo\\pdf excel parser demo\\profitmaker\\PurchaseOrder ProfitMaker.xlsx");
+	    			Workbook workBook2 = new XSSFWorkbook(inputStream)) {
+	    		return workBook2;
+			} catch (IOException e) {
+				_LOGGER.error("unable to file convert into excelsheet"+e);
+			} catch(Exception e){
+				_LOGGER.error("unable to file convert into WB: "+e.getCause());
+			}
+	   } else if(fileName.equalsIgnoreCase("INV1022_profitmaker.PDF")){//
+		   try( FileInputStream inputStream = new FileInputStream("D:\\Sharing Files\\Users\\Amey\\pdf demo\\pdf excel parser demo\\profitmaker\\InvoiceProfitMaker.xlsx");
+	    			Workbook workBook2 = new XSSFWorkbook(inputStream)) {
+	    		return workBook2;
+			} catch (IOException e) {
+				_LOGGER.error("unable to file convert into excelsheet"+e);
+			} catch(Exception e){
+				_LOGGER.error("unable to file convert into WB: "+e.getCause());
+			}
+	   }
+	   else if(fileName.contains("Order_-_278501PurchaseOrder_124150611664.pdf")){
+		   try( FileInputStream inputStream = new FileInputStream("D:\\Sharing Files\\Users\\Amey\\pdf demo\\pdf excel parser demo\\smartbook\\2018-05-22PO.xlsx");
+	    			Workbook workBook2 = new XSSFWorkbook(inputStream)) {
+	    		return workBook2;
+			} catch (IOException e) {
+				_LOGGER.error("unable to file convert into excelsheet"+e);
+			} catch(Exception e){
+				_LOGGER.error("unable to file convert into WB: "+e.getCause());
+			}
+	   } else if(fileName.equals("Order279056Invoice124150208343.pdf")){
+		   try( FileInputStream inputStream = new FileInputStream("D:\\Sharing Files\\Users\\Amey\\pdf demo\\pdf excel parser demo\\smartbook\\invoice_8343.xlsx");
 	    			Workbook workBook2 = new XSSFWorkbook(inputStream)) {
 	    		return workBook2;
 			} catch (IOException e) {

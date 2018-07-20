@@ -38,6 +38,7 @@ public class PdfServiceImpl implements IPdfService {
 		invoDetailEntity.setTerms(invoObj.getTerms());
 		invoDetailEntity.setShipAccount(invoObj.getShipAccount());
 		invoDetailEntity.setCustPo(invoObj.getCustPO());
+		invoDetailEntity.setOrderDetails(invoObj.getOrderDetails());
 		invoiceAddress.setAddressId(invoObj.getInvoiceNumber());
 		invoiceAddress.setBillAddress(invoObj.getBillAddress());
 		invoiceAddress.setInvoiceAddress(invoObj.getInvoiceAddress());
@@ -167,9 +168,12 @@ public class PdfServiceImpl implements IPdfService {
 		invoObj.setTerms(inVoiceEntity.getTerms());
 		invoObj.setShipAccount(inVoiceEntity.getShipAccount());
 		invoObj.setCustPO(inVoiceEntity.getCustPo());
+		invoObj.setOrderDate(inVoiceEntity.getOrderDate());
+		invoObj.setOrderDetails(inVoiceEntity.getOrderDetails());
 		invoObj.setInvoiceAddress(invAddress.getInvoiceAddress());
 		invoObj.setBillAddress(invAddress.getBillAddress());
 		invoObj.setShippingAddress(invAddress.getShippingAddress());
+		
 		return invoObj;
 	}
 

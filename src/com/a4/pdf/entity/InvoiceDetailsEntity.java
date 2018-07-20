@@ -20,6 +20,8 @@ public class InvoiceDetailsEntity {
 	private String ordNo;
 	@Column(name = "OrderDate")
 	private String orderDate;
+	@Column(name="OrderDetails")
+	private String orderDetails;
 	@Column(name = "ShipDate")
 	private String shipDate;
 	@Column(name = "InvoiceDate")
@@ -111,6 +113,11 @@ public class InvoiceDetailsEntity {
 	public void setInvoiceAddress(InvoiceAddressEntity invoiceAddress) {
 		this.invoiceAddress = invoiceAddress;
 	}
-	
+	public String getOrderDetails() {
+		return orderDetails;
+	}
+	public void setOrderDetails(String orderDetails) {
+		this.orderDetails = orderDetails;
+	}
 
 }

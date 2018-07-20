@@ -17,6 +17,8 @@ public class InVoiceBean {
 	private String	invoiceAddress;
 	private String	billAddress;
 	private String	shippingAddress;
+	private String  orderDetails;
+	
 	public String getSrNo() {
 		return srNo;
 	}
@@ -108,7 +110,12 @@ public class InVoiceBean {
 		this.shippingAddress = shippingAddress;
 	}
 	
-	
+	public String getOrderDetails() {
+		return orderDetails;
+	}
+	public void setOrderDetails(String orderDetails) {
+		this.orderDetails = orderDetails;
+	}
 	
 	
 }

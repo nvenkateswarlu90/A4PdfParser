@@ -30,6 +30,7 @@ public class PdfDaoImpl implements IpdfDao {
 			trx.commit();
 		} catch (Exception e) {
 			_LOGGER.error("unable to save Invoice data:" + e.getMessage());
+			System.err.println("unable to save Invoice data:" + e.getMessage());
 			if (trx != null) {
 				try {
 					trx.rollback();
@@ -60,11 +61,13 @@ public class PdfDaoImpl implements IpdfDao {
 			trx.commit();
 		} catch (Exception e) {
 			_LOGGER.error("unable to save PO data:" + e.getMessage());
+			System.err.println("unable to save PO data:" + e.getMessage());
 			if (trx != null) {
 				try {
 					trx.rollback();
 				} catch (Exception exce) {
 					_LOGGER.error("Unbale to rollback PO details:" + exce.getMessage());
+					System.err.println("Unbale to rollback PO details:" + exce.getMessage());
 				}
 			}
 		} finally {

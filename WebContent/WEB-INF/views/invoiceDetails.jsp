@@ -86,6 +86,7 @@ h4 {
 					<thead>
 						<tr>
 							<th scope="col">InvoiceNumber</th>
+							<th scope="col">JobId</th>
 							<th scope="col">InvoiceAddress</th>
 							<th scope="col">BillAddress</th>
 							<th scope="col">ShippingAddress</th>
@@ -101,9 +102,10 @@ h4 {
 						</tr>
 					</thead>
 					<tbody>
-					<c:forEach items="${profitMakerPODataList}" var="invoice" varStatus="status">
+					<c:forEach items="${invoiceData}" var="invoice" varStatus="status">
 					<tr>
 						<td>${invoice.invoiceNumber}</td>
+						<td>${invoice.custPO}</td>
 						<td>${invoice.invoiceAddress}</td>
 						<td>${invoice.billAddress}</td>
 						<td>${invoice.shippingAddress}</td>
@@ -115,9 +117,9 @@ h4 {
 						<td>${invoice.customerDetails}</td>
 						<td>${invoice.terms}</td>
 						<td>${invoice.logisticInfo}</td>
-						<td>${invoice.logisticInfo}</td>
+						<td>${invoice.orderDetails}</td>
 						
-						<td><button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#Modal">T&C</button></td>
+						<!-- <td><button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#Modal">T&C</button></td> -->
 						<%
 						session.setAttribute("colValue", "Terms and Conditions");
 						%>

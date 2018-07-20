@@ -85,7 +85,7 @@ h4 {
 			<table class="table table-bordered table-hover" id="tab_logic">
 					<thead>
 						<tr>
-							<th scope="col">FileName</th>
+							<!-- <th scope="col">FileName</th> -->
 							<th scope="col">PoAddress</th>
 							<th scope="col">VendorAddress</th>
 							<th scope="col">VendorNo</th>
@@ -108,7 +108,7 @@ h4 {
 					<tbody>
 					<c:forEach items="${profitMakerPODataList}" var="purchaseOrder" varStatus="status">
 					<tr>
-						<td>${purchaseOrder.fileName}</td>
+	<%-- 					<td>${purchaseOrder.fileName}</td> --%>
 						<td>${purchaseOrder.poAddress}</td>
 						<td>${purchaseOrder.vendorAddress}</td>
 						<td>${purchaseOrder.vendorNo}</td>

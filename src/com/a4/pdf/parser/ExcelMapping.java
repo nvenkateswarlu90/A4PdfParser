@@ -17,6 +17,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import com.a4.pdf.model.InVoiceBean;
+
 
 
 
@@ -24,11 +26,11 @@ import org.springframework.util.StringUtils;
 public class ExcelMapping {
 	
 	private static final Logger _LOGGER = Logger.getLogger(ExcelMapping.class);
-	public static LinkedHashMap<String, String> readExcel(Workbook workbook ){
+	public static InVoiceBean readExcel(Workbook workbook ){
 
 LinkedHashMap <String, String> valuesMap=new LinkedHashMap<String, String>();
-		
-		
+		InVoiceBean invoiceDetails = new InVoiceBean();
+		StringBuilder orderDetails = new StringBuilder();
 		
 		int columnIndex=0;
 		try{
@@ -43,6 +45,7 @@ LinkedHashMap <String, String> valuesMap=new LinkedHashMap<String, String>();
 	    
 	   
 		Row headerRow = null;
+		
 		while (iterator.hasNext()) {
 			try{
 			Row nextRow = iterator.next();
@@ -91,6 +94,7 @@ LinkedHashMap <String, String> valuesMap=new LinkedHashMap<String, String>();
 					    	String MAINADDRESS=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(MAINADDRESS)){
 					    	valuesMap.put(headerName, MAINADDRESS.trim());
+					    	invoiceDetails.setInvoiceAddress(MAINADDRESS);
 					    	}
 							break;
 					    case "OFFICENO":
@@ -109,52 +113,64 @@ LinkedHashMap <String, String> valuesMap=new LinkedHashMap<String, String>();
 					    	valuesMap.put(headerName, EMAILID.trim());
 					    	}
 					    	break;
+					    case "INVOICENUMBER"://InvoiceNumber
+					    	String invoiceNo = getCellValueStrinOrInt(cell);
+					    	invoiceDetails.setInvoiceNumber(invoiceNo);
+					    	break;
 					    case "SALESPERSON":
 					    	String SALESPERSON=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(SALESPERSON)){
 					    	valuesMap.put(headerName, SALESPERSON.trim());
+					    	invoiceDetails.setSalesPerson(SALESPERSON);
 					    	}
 					    	break;
 					    case "ORDERNO":
 					    	String ORDERNO=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(ORDERNO)){
 					    	valuesMap.put(headerName, ORDERNO.trim());
+					    	invoiceDetails.setOrderNo(ORDERNO);
 					    	}
 					    	break;
 					    case "ORDERDATE":
 					    	String ORDERDATE=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(ORDERDATE)){
 					    	valuesMap.put(headerName, ORDERDATE.trim());
+					    	invoiceDetails.setOrderDate(ORDERDATE);
 					    	}
 					    	break;
 					    case "INVOICEDATE":
 					    	String INVOICEDATE=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(INVOICEDATE)){
 					    	valuesMap.put(headerName, INVOICEDATE.trim());
+					    	invoiceDetails.setInvoiceDate(INVOICEDATE);
 					    	}
 					    	break;
 					    case "BILLADDRESS":
 					    	String BILLADDRESS=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(BILLADDRESS)){
 					    	valuesMap.put(headerName, BILLADDRESS.trim());
+					    	invoiceDetails.setBillAddress(BILLADDRESS);
 					    	}
 					    	break;
 					    case "SHIPADDRESS":
 					    	String SHIPADDRESS=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(SHIPADDRESS)){
 					    	valuesMap.put(headerName, SHIPADDRESS.trim());
+					    	invoiceDetails.setShippingAddress(SHIPADDRESS);
 					    	}
 					    	break;
 					    case "CUSTOMERNO":
 					    	String CUSTOMERNO=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(CUSTOMERNO)){
 					    	valuesMap.put(headerName, CUSTOMERNO.trim());
+					    	//invoiceDetails.setCustPO(custPO);
 					    	}
 					    	break;
 					    case "TERMS":
 					    	String TERMS=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(TERMS)){
 					    	valuesMap.put(headerName, TERMS.trim());
+					    	invoiceDetails.setTerms(TERMS);
 					    	}
 					    	break;
 					    case "METHOD":
@@ -171,6 +187,7 @@ LinkedHashMap <String, String> valuesMap=new LinkedHashMap<String, String>();
 					    		SHIPVIA=SHIPVIA.toUpperCase();
 					    		SHIPVIA=SHIPVIA.replace("A:", "");
 					    	valuesMap.put(headerName, SHIPVIA.trim());
+					    	invoiceDetails.setLogisticInfo(SHIPVIA);
 					    	}
 					    	break;
 					    case "SHIPACCOUNT":
@@ -187,42 +204,49 @@ LinkedHashMap <String, String> valuesMap=new LinkedHashMap<String, String>();
 					    		QUANTITY=QUANTITY.toUpperCase();
 					    		QUANTITY=QUANTITY.replace("G", "");
 					    	valuesMap.put(headerName, QUANTITY.trim());
+					    	orderDetails.append(QUANTITY).append("##");
 					    	}
 					    	break;
 					    case "PRODUCTNAME":
 					    	String PRODUCTNAME=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(PRODUCTNAME)){
 					    	valuesMap.put(headerName, PRODUCTNAME.trim());
+					    	orderDetails.append(PRODUCTNAME).append("##");
 					    	}
 					    	break;
 					    case "DESCRIPTION":
 					    	String DESCRIPTION=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(DESCRIPTION)){
 					    	valuesMap.put(headerName, DESCRIPTION.trim());
+					    	orderDetails.append(DESCRIPTION).append("##");
 					    	}
 					    	break;
 					    case "UNIT":
 					    	String UNIT=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(UNIT)){
 					    	valuesMap.put(headerName, UNIT.trim());
+					    	orderDetails.append(UNIT).append("##");
 					    	}
 					    	break;
 					    case "PRODUCTPRICE":
 					    	String PRODUCTPRICE=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(PRODUCTPRICE)){
 					    	valuesMap.put(headerName, PRODUCTPRICE.trim());
+					    	orderDetails.append(PRODUCTPRICE).append("##");
 					    	}
 					    	break;
 					    case "PRICEPER":
 					    	String PRICEPER=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(PRICEPER)){
 					    	valuesMap.put(headerName, PRICEPER.trim());
+					    	orderDetails.append(PRICEPER).append("##");
 					    	}
 					    	break;
 					    case "TOTALPRICE":
 					    	String TOTALPRICE=getCellValueStrinOrInt(cell);
 					    	if(!StringUtils.isEmpty(TOTALPRICE)){
 					    	valuesMap.put(headerName, TOTALPRICE.trim());
+					    	orderDetails.append(TOTALPRICE).append("##");
 					    	}
 					    	break;
 					    case "ORDERTOTAL":
@@ -231,6 +255,7 @@ LinkedHashMap <String, String> valuesMap=new LinkedHashMap<String, String>();
 					    	ORDERTOTAL=ORDERTOTAL.toUpperCase();
 					    	ORDERTOTAL=ORDERTOTAL.replace("ORDER TOTAL", "");
 					    	valuesMap.put(headerName, ORDERTOTAL.trim());
+					    	orderDetails.append(ORDERTOTAL).append("##");
 					    	}
 					    	break;
 					    case "TOTALDUE":
@@ -272,7 +297,8 @@ LinkedHashMap <String, String> valuesMap=new LinkedHashMap<String, String>();
 				_LOGGER.info("Complted processing of excel sheet ");
 				
 		}
-		return valuesMap;
+		invoiceDetails.setOrderDetails(orderDetails.toString());
+		return invoiceDetails;
 		
 	}
 	private static String getHeaderName(int columnIndex, Row headerRow) {

@@ -85,7 +85,6 @@ h4 {
 			<table class="table table-bordered table-hover" id="tab_logic">
 					<thead>
 						<tr>
-							<th scope="col">FileName</th>
 							<th scope="col">PoAddress</th>
 							<th scope="col">VendorAddress</th>
 							<th scope="col">VendorNo</th>
@@ -99,7 +98,7 @@ h4 {
 							<th scope="col">Terms</th>
 							<th scope="col">SalesPerson</th>
 							<th scope="col">OrderDetails</th>
-							 <th scope="col">Product Criteria</th>
+							 <th scope="col">Instructions</th>
 							<th scope="col">InstructionsToFactory1</th>
 							<th scope="col">InstructionsToFactory2</th>
 							<th scope="col" >TermsAndConditions</th>
@@ -108,7 +107,6 @@ h4 {
 					<tbody>
 					<c:forEach items="${profitMakerPODataList}" var="purchaseOrder" varStatus="status">
 					<tr>
-						<td>${purchaseOrder.fileName}</td>
 						<td>${purchaseOrder.poAddress}</td>
 						<td>${purchaseOrder.vendorAddress}</td>
 						<td>${purchaseOrder.vendorNo}</td>
