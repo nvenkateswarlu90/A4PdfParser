@@ -101,7 +101,6 @@ h4 {
 							 <th scope="col">Instructions</th>
 							<th scope="col">InstructionsToFactory1</th>
 							<th scope="col">InstructionsToFactory2</th>
-							<th scope="col" >TermsAndConditions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -123,7 +122,6 @@ h4 {
 						<td>${purchaseOrder.productcriteria}</td>
 						<td>${purchaseOrder.instructionsToFactory1}</td>
 						<td>${purchaseOrder.instructionsToFactory2}</td>
-						<td><button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#Modal">T&C</button></td>
 						<%
 						session.setAttribute("colValue", "Terms and Conditions");
 						%>
