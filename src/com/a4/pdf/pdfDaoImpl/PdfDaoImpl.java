@@ -29,13 +29,13 @@ public class PdfDaoImpl implements IpdfDao {
 			session.save(invoiceDetails);
 			trx.commit();
 		} catch (Exception e) {
-			_LOGGER.error("unable to save Invoice data:" + e.getMessage());
-			System.err.println("unable to save Invoice data:" + e.getMessage());
+			_LOGGER.error("unable to save Invoice data:" + e.getCause());
+			System.err.println("unable to save Invoice data:" + e.getCause());
 			if (trx != null) {
 				try {
 					trx.rollback();
 				} catch (Exception exce) {
-					_LOGGER.error("Unbale to rollback Invoice details:" + exce.getMessage());
+					_LOGGER.error("Unbale to rollback Invoice details:" + exce.getCause());
 				}
 			}
 		} finally {
@@ -60,14 +60,12 @@ public class PdfDaoImpl implements IpdfDao {
 			session.save(poEntity);
 			trx.commit();
 		} catch (Exception e) {
-			_LOGGER.error("unable to save PO data:" + e.getMessage());
-			System.err.println("unable to save PO data:" + e.getMessage());
+			_LOGGER.error("unable to save PO data:" + e.getCause());
 			if (trx != null) {
 				try {
 					trx.rollback();
 				} catch (Exception exce) {
-					_LOGGER.error("Unbale to rollback PO details:" + exce.getMessage());
-					System.err.println("Unbale to rollback PO details:" + exce.getMessage());
+					_LOGGER.error("Unbale to rollback PO details:" + exce.getCause());
 				}
 			}
 		} finally {
@@ -95,7 +93,7 @@ public class PdfDaoImpl implements IpdfDao {
 			return poNumbersList;
 
 		} catch (Exception e) {
-			_LOGGER.error("Unable to fetch PO numbers:" + e.getMessage());
+			_LOGGER.error("Unable to fetch PO numbers:" + e.getCause());
 		} finally {
 			if (session != null) {
 				try {
@@ -121,7 +119,7 @@ public class PdfDaoImpl implements IpdfDao {
 			return poNumbersList;
 
 		} catch (Exception e) {
-			_LOGGER.error("Unable to fetch PO numbers:" + e.getMessage());
+			_LOGGER.error("Unable to fetch PO numbers:" + e.getCause());
 		} finally {
 			if (session != null) {
 				try {
@@ -170,7 +168,7 @@ public class PdfDaoImpl implements IpdfDao {
 			//return poNumbersList;
 
 		} catch (Exception e) {
-			_LOGGER.error("Unable to fetch PO numbers:" + e.getMessage());
+			_LOGGER.error("Unable to fetch PO numbers:" + e.getCause());
 		} finally {
 			if (session != null) {
 				try {
