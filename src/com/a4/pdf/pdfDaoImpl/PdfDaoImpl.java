@@ -10,12 +10,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.a4.pdf.entity.InvoiceDetailsEntity;
 import com.a4.pdf.entity.POEntity;
 import com.a4.pdf.ipdfDao.IpdfDao;
 
+@Repository
 public class PdfDaoImpl implements IpdfDao {
+	@Autowired
 	private SessionFactory sessionFactory;
 	private Logger _LOGGER = Logger.getLogger(PdfDaoImpl.class);
 
@@ -47,7 +51,7 @@ public class PdfDaoImpl implements IpdfDao {
 				}
 			}
 		}
-
+		_LOGGER.info("Invoice Data has been saved successfully in DB");
 	}
 
 	@Override
@@ -77,7 +81,7 @@ public class PdfDaoImpl implements IpdfDao {
 				}
 			}
 		}
-
+		_LOGGER.info("PO Data has been saved successfully in DB");
 	}
 
 	@Override
@@ -89,7 +93,6 @@ public class PdfDaoImpl implements IpdfDao {
 			Criteria criteria = session.createCriteria(InvoiceDetailsEntity.class);
 			criteria.setProjection(Projections.property("invoiceNo"));
 			List<String> poNumbersList = criteria.list();
-			// String data = (String) criteria.uniqueResult();
 			return poNumbersList;
 
 		} catch (Exception e) {
@@ -115,7 +118,6 @@ public class PdfDaoImpl implements IpdfDao {
 			Criteria criteria = session.createCriteria(POEntity.class);
 			criteria.setProjection(Projections.property("poNumber"));
 			List<String> poNumbersList = criteria.list();
-			// String data = (String) criteria.uniqueResult();
 			return poNumbersList;
 
 		} catch (Exception e) {
@@ -139,7 +141,7 @@ public class PdfDaoImpl implements IpdfDao {
 		try {
 			session = sessionFactory.openSession();
 			Criteria criteria = session.createCriteria(InvoiceDetailsEntity.class);
-			criteria.add(Restrictions.eq("invoiceNo",invoiceNo));//InvoiceNumber//invoiceNo
+			criteria.add(Restrictions.eq("invoiceNo", invoiceNo));// InvoiceNumber//invoiceNo
 			invoiceDetails = (InvoiceDetailsEntity) criteria.uniqueResult();
 
 		} catch (Exception e) {
@@ -163,10 +165,8 @@ public class PdfDaoImpl implements IpdfDao {
 		try {
 			session = sessionFactory.openSession();
 			Criteria criteria = session.createCriteria(POEntity.class);
-			criteria.add(Restrictions.eq("poNumber",poNo));
-			 poEntity = (POEntity) criteria.uniqueResult();
-			//return poNumbersList;
-
+			criteria.add(Restrictions.eq("poNumber", poNo));
+			poEntity = (POEntity) criteria.uniqueResult();
 		} catch (Exception e) {
 			_LOGGER.error("Unable to fetch PO numbers:" + e.getCause());
 		} finally {
@@ -179,14 +179,6 @@ public class PdfDaoImpl implements IpdfDao {
 			}
 		}
 		return poEntity;
-	}
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
 	}
 
 }

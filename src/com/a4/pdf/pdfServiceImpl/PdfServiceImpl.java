@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -17,16 +16,15 @@ import com.a4.pdf.ipdfService.IPdfService;
 import com.a4.pdf.model.InVoiceBean;
 import com.a4.pdf.model.PurchaseOrder;
 
-
+@Service
 public class PdfServiceImpl implements IPdfService {
-	//@Autowired
+	@Autowired
 	private IpdfDao pdfDao;
 
 	@Override
 	public void saveInvoiceDetails(InVoiceBean invoObj) {
-		InvoiceDetailsEntity invoDetailEntity=new InvoiceDetailsEntity();
-		InvoiceAddressEntity invoiceAddress=new InvoiceAddressEntity();
-		//invoDetailEntity.setSrNo(Integer.parseInt(invoObj.getSrNo()));
+		InvoiceDetailsEntity invoDetailEntity = new InvoiceDetailsEntity();
+		InvoiceAddressEntity invoiceAddress = new InvoiceAddressEntity();
 		invoDetailEntity.setInvoiceNo(invoObj.getInvoiceNumber());
 		invoDetailEntity.setOrdNo(invoObj.getOrderNo());
 		invoDetailEntity.setOrderDate(invoObj.getOrderDate());
@@ -44,31 +42,9 @@ public class PdfServiceImpl implements IPdfService {
 		invoiceAddress.setInvoiceAddress(invoObj.getInvoiceAddress());
 		invoiceAddress.setShippingAddress(invoObj.getShippingAddress());
 		invoDetailEntity.setInvoiceAddress(invoiceAddress);
-		/*//invoDetailEntity.setSrNo(9879);
-		invoDetailEntity.setInvoiceNo("123123");
-		invoDetailEntity.setOrdNo("123999");
-		invoDetailEntity.setOrderDate("11/07/1990");
-		invoDetailEntity.setShipDate("22/2/12");
-		invoDetailEntity.setInvoiceDate("23/1/23");
-		invoDetailEntity.setSalesPerson("atrs rocks");
-		invoDetailEntity.setCustomerDetails("Cherry berry");
-		invoDetailEntity.setLogisticInfo("Harry Kane");
-		invoDetailEntity.setTerms("IUh asdbiasd");
-		invoDetailEntity.setShipAccount("Shipping acoount");
-		invoDetailEntity.setCustPo("123PO");
-		invoiceAddress.setAddressId("123123");
-		//invoiceAddress.setInvoiceNumber("123123");
-		invoiceAddress.setBillAddress("Hyderabad");
-		//invoiceAddress.setInvoiceAddress("Banglore ,mumbai");
-		invoiceAddress.setShippingAddress("pearl harbour");
-		invoDetailEntity.setInvoiceAddress(invoiceAddress);*/
-		//InvoiceDetailsEntity inVoiceEntity = pdfDao.getInvoiceDetails(invoObj);
-		//InVoiceBean invoObj= new InVoiceBean();
-		//return invoObj;
 		pdfDao.saveInvoiceDetails(invoDetailEntity);
 	}
 
-	
 	@Override
 	public void savePoDetails(List<PurchaseOrder> pruchaseOrdersList) {
 		POEntity poEntity = new POEntity();
@@ -78,8 +54,8 @@ public class PdfServiceImpl implements IPdfService {
 			vendorDetailsEntity = new VendorDetailsEntity();
 			if (purchaseOrderNo == 1) {
 				poEntity.setPoNumber(purchaseOrder.getPoNo());
-				if(!StringUtils.isEmpty(purchaseOrder.getJob())){
-					poEntity.setJobId(Integer.parseInt(purchaseOrder.getJob()));	
+				if (!StringUtils.isEmpty(purchaseOrder.getJob())) {
+					poEntity.setJobId(Integer.parseInt(purchaseOrder.getJob()));
 				}
 				poEntity.setPoAddress(purchaseOrder.getPoAddress());
 				poEntity.setVendorNo(purchaseOrder.getVendorNo());
@@ -93,6 +69,7 @@ public class PdfServiceImpl implements IPdfService {
 		}
 		pdfDao.savePoDetails(poEntity);
 	}
+
 	private VendorDetailsEntity getVendorDetals(PurchaseOrder purchaseOrder) {
 		VendorDetailsEntity vendorDetailsEntity = new VendorDetailsEntity();
 		vendorDetailsEntity.setCustPo(purchaseOrder.getCustomerPo());
@@ -112,18 +89,21 @@ public class PdfServiceImpl implements IPdfService {
 
 		return vendorDetailsEntity;
 	}
+
 	@Override
 	public List<String> getAllInvoiceNumber() {
 		return pdfDao.getAllInvoiceNumber();
 	}
+
 	@Override
 	public List<String> getAllPONumber() {
-      return pdfDao.getAllPONumber();
+		return pdfDao.getAllPONumber();
 	}
+
 	@Override
 	public List<PurchaseOrder> getPODetails(String poNo) {
 		POEntity poEntity = pdfDao.getPODetails(poNo);
-		List<PurchaseOrder> poList= new ArrayList<PurchaseOrder>();
+		List<PurchaseOrder> poList = new ArrayList<PurchaseOrder>();
 		List<VendorDetailsEntity> vendorList = poEntity.getListOfVendorDetails();
 		PurchaseOrder po = null;
 		for (VendorDetailsEntity vendorDetailsEntity : vendorList) {
@@ -134,8 +114,8 @@ public class PdfServiceImpl implements IPdfService {
 			po.setVendorNo(vendorDetailsEntity.getVendorNo());
 			po.setShippingRequest(vendorDetailsEntity.getRequestDate());
 			po.setPoNo(poEntity.getPoNumber());
-			if(!StringUtils.isEmpty(poEntity.getJobId())){
-				po.setJob(Integer.toString(poEntity.getJobId()));	
+			if (!StringUtils.isEmpty(poEntity.getJobId())) {
+				po.setJob(Integer.toString(poEntity.getJobId()));
 			}
 			po.setShippingAddress(vendorDetailsEntity.getShippingAddress());
 			po.setCustomerPo(vendorDetailsEntity.getCustPo());
@@ -143,8 +123,8 @@ public class PdfServiceImpl implements IPdfService {
 			po.setTerms(vendorDetailsEntity.getTerms());
 			po.setSalesPerson(vendorDetailsEntity.getSalesPerson());
 			po.setOrderDetails(new StringBuilder(vendorDetailsEntity.getProductDetails()));
-			if(!StringUtils.isEmpty(vendorDetailsEntity.getProductCriteriaInstruction())){
-				po.setProductcriteria(new StringBuilder(vendorDetailsEntity.getProductCriteriaInstruction()));	
+			if (!StringUtils.isEmpty(vendorDetailsEntity.getProductCriteriaInstruction())) {
+				po.setProductcriteria(new StringBuilder(vendorDetailsEntity.getProductCriteriaInstruction()));
 			}
 			po.setProductImprintLocation(vendorDetailsEntity.getImprintLocation());
 			po.setInstructionsToFactory1(vendorDetailsEntity.getInstructionToFactory1());
@@ -153,10 +133,11 @@ public class PdfServiceImpl implements IPdfService {
 		}
 		return poList;
 	}
+
 	@Override
 	public InVoiceBean getInvoiceDetails(String invoiceNo) {
 		InvoiceDetailsEntity inVoiceEntity = pdfDao.getInvoiceDetails(invoiceNo);
-		InVoiceBean invoObj= new InVoiceBean();
+		InVoiceBean invoObj = new InVoiceBean();
 		InvoiceAddressEntity invAddress = inVoiceEntity.getInvoiceAddress();
 		invoObj.setInvoiceNumber(inVoiceEntity.getInvoiceNo());
 		invoObj.setOrderNo(inVoiceEntity.getOrdNo());
@@ -173,17 +154,7 @@ public class PdfServiceImpl implements IPdfService {
 		invoObj.setInvoiceAddress(invAddress.getInvoiceAddress());
 		invoObj.setBillAddress(invAddress.getBillAddress());
 		invoObj.setShippingAddress(invAddress.getShippingAddress());
-		
+
 		return invoObj;
 	}
-
-	public IpdfDao getPdfDao() {
-		return pdfDao;
-	}
-
-	public void setPdfDao(IpdfDao pdfDao) {
-		this.pdfDao = pdfDao;
-	}
-
-
 }
