@@ -90,12 +90,12 @@ h4 {
 <div class="form-group">
     <!-- <input type="file" name="img[]" class="file"> -->
     <div class="input-group col-xs-12"> <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-      <input type="file" name="file" class="form-control input-md"/>
+      <input type="file" name="file" id="file" class="form-control input-md"/>
       <span class="input-group-btn">
       <!-- <button class="browse btn btn-dark input-md" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button> -->
       </span> </div>
     <br>
-       <button type="submit" class="btn btn-primary col-md-12"> Upload File </button></a>
+       <button type="submit" class="btn btn-primary col-md-12" onclick="return checkFieldValidation()"> Upload File </button></a>
 </div>
 </form:form>
 </div>
@@ -111,6 +111,20 @@ $(document).on('click', '.browse', function(){
 	$(document).on('change', '.file', function(){
 	  $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
 	});
+function checkFieldValidation(){
+   var fileType = $('#environmentTypeId').val();
+   var file     = $('#file').val();
+   if(fileType !='NONE'){
+	  if(file !=''){
+		  return true;
+	  }  else {
+		  alert('Please Upload File');
+	  }   
+   } else {
+	   alert('Please Select File Type');
+   }
+   return false;
+}
 	</script>
 </body>
 </html>
