@@ -342,12 +342,12 @@ public class PurOrdParser  {
 						+ e.getMessage());
 
 			}
-			_LOGGER.info("Complted processing of excel sheet ");
 		
 			}
 			}
 			purchaseOrder.setOrderDetails(new StringBuilder(PDF_MAP.get(Quantity)));
 			purchaseOrderList.add(purchaseOrder);
+			_LOGGER.info("Complted processing of excel sheet ");
 			return purchaseOrderList;	
 		
 	}

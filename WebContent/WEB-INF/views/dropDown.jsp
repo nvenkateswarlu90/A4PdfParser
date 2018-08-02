@@ -103,7 +103,7 @@ h4 {
 
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary col-md-4">
+			<button type="submit" class="btn btn-primary col-md-4" onclick="return checkfield()">
 				Submit</button>
 
 
@@ -155,6 +155,22 @@ h4 {
 					alert('Error: ' + e);
 				}
 			});
+		}
+		
+		function checkfield(){
+			var poInvNo = $('#poInvId').val();
+			//pdfType
+			var pdfFileType = $('#pdfType').val();
+			if(pdfFileType == 'Select Type Of File'){
+				alert('Please Choose File Type');
+				return false;
+			}
+			if(poInvNo != 'Select Sublist'){
+				return true;
+			} else {
+				alert('Please Select PO/InvoiceNo');
+				return false;
+			}
 		}
 		
 	</script>
